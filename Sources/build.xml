@@ -1,0 +1,5 @@
+<project name="compile" default="compileSources" basedir=".">
+	<target name="compileSources">
+		<javac srcdir="devops/" />
+	</target>
+</project>
