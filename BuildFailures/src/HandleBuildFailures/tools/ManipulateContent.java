@@ -9,28 +9,32 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileWriter;
+import java.io.File;
 
 public class ManipulateContent extends Content
 {
-    public static void check(String Path) throws IOException
+    public static void check(String directoryPath) throws IOException
     {
-        String OriginalFile="build.xml";
-        Content initializeContent = new Content();
-        FileReader fileReader=  new FileReader(Path+OriginalFile);
+        String originalFile="build.xml", modifiedFile="output.xml", tempFile="temp.xml";
+        File originalFileName=new File(directoryPath+originalFile);
+        File modifiedFileName=new File(directoryPath+modifiedFile);
+        File tempFileName=new File(directoryPath+tempFile);
+        Content variableValues = new Content();
+        FileReader fileReader=  new FileReader(originalFileName);
         BufferedReader bufferedReader =  new BufferedReader(fileReader);
         String contentInALine;
         StringBuffer stringBuffer = new StringBuffer();
         while((contentInALine=bufferedReader.readLine())!=null)
         {
-            if(contentInALine.contains(initializeContent.renameTarget))
+            if(contentInALine.contains(variableValues.renameTarget))
             {
-                contentInALine=contentInALine.replace(initializeContent.renameTarget,initializeContent.overwriteRenameTarget);
+                contentInALine=contentInALine.replace(variableValues.renameTarget,variableValues.overwriteRenameTarget);
                 stringBuffer.append(contentInALine);
                 stringBuffer.append("\n");
             }
-            else if(contentInALine.contains(initializeContent.referenceTarget))
+            else if(contentInALine.contains(variableValues.referenceTarget))
             {
-                contentInALine=contentInALine.replace(initializeContent.referenceTarget,initializeContent.referenceTarget+initializeContent.dupTarget);
+                contentInALine=contentInALine.replace(variableValues.referenceTarget,variableValues.referenceTarget+variableValues.dupTarget);
                 stringBuffer.append(contentInALine);
                 stringBuffer.append("\n");
             }
@@ -40,41 +44,12 @@ public class ManipulateContent extends Content
                 stringBuffer.append("\n");
             }
         }
-        //stringBuffer.append(initializeContent.dupTarget);
-        FileWriter fileWriter = new FileWriter("/root/Desktop/original/output.xml");
+        FileWriter fileWriter = new FileWriter(modifiedFileName);
         fileWriter.write(stringBuffer.toString());
         fileWriter.close();
         fileReader.close();
+        modifiedFileName.renameTo(tempFileName);
+        originalFileName.renameTo(modifiedFileName);
+        tempFileName.renameTo(originalFileName);
     }
-    /*public void setContent(String Path) throws FileNotFoundException, IOException
-    {
-        int content;
-        String originalFile="build.xml", tempFile="temp.xml", outputFile="output.xml", checkFile="check.xml", tempContent;
-        File originalFileName = new File(Path+"original/"+originalFile);
-        File outputFileName = new File(Path+outputFile);
-        File tempFileName = new File(Path+"original/"+tempFile);
-        File checkFileName = new File(Path+"original/"+checkFile);
-        System.out.println(Path);
-        FileInputStream fileInputStream = new FileInputStream(originalFileName);
-        FileOutputStream fileOutputStream = new FileOutputStream(outputFileName);
-        while((content=fileInputStream.read())!=-1)
-        {
-            tempContent=String.valueOf(content);
-            if(tempContent.equals("target"))
-            {
-                tempContent.replace("target","targets");
-            }
-            else
-            {
-                fileOutputStream.write((byte)content);
-            }
-        }
-        fileInputStream.close();
-        fileOutputStream.close();
-        System.out.println("Wrote the content to "+outputFile);
-        originalFileName.renameTo(tempFileName);
-        System.out.println("Renamed "+originalFile+" to "+tempFileName);
-        outputFileName.renameTo(checkFileName);
-
-    }*/
 }
