@@ -6,7 +6,11 @@ package handlebuildfailures.tools.setcontent;
 
 import handlebuildfailures.tools.content.Content;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.BufferedReader;
 
 public class ManipulateBuildFileContent extends Content
 {
@@ -58,22 +62,9 @@ public class ManipulateBuildFileContent extends Content
         StringBuffer stringBufferStart=new StringBuffer();
         while((contentInALine=bufferedReaderStart.readLine())!=null)
         {
-            if(contentInALine.contains(variableValues.overwriteRenameTarget))
+            if(contentInALine.contains(variableValues.dupTarget))
             {
-                contentInALine=contentInALine.replace(variableValues.overwriteRenameTarget,variableValues.renameTarget);
-                stringBufferStart.append(contentInALine);
-                stringBufferStart.append("\n");
-            }
-            else if(contentInALine.contains(variableValues.dupTarget))
-            {
-                contentInALine=contentInALine.replace(contentInALine,variableValues.referenceTarget);
-                stringBufferStart.append(contentInALine);
-                stringBufferStart.append("\n");
-            }
-            else if(contentInALine.contains(variableValues.originalTargets))
-            {
-                System.out.println(contentInALine.toString());
-                contentInALine=contentInALine.replace(variableValues.originalTargets,variableValues.toolsBuildTargets);
+                contentInALine=contentInALine.replace(contentInALine,variableValues.toolsBuildTargets);
                 stringBufferStart.append(contentInALine);
                 stringBufferStart.append("\n");
             }
@@ -82,17 +73,15 @@ public class ManipulateBuildFileContent extends Content
                 stringBufferStart.append(contentInALine);
                 stringBufferStart.append("\n");
             }
-           /* if(contentInALine.contains(variableValues.dupTarget))
-            {
-                System.out.println(contentInALine.toString());
-                contentInALine=contentInALine.replace(contentInALine, variableValues.toolsBuildTargets);
-                System.out.println(contentInALine.toString());
-            }*/
         }
         FileWriter fileWriterStart=new FileWriter(modifiedFileName);
         fileWriterStart.write(stringBufferStart.toString());
         fileWriterStart.close();
         fileReaderStart.close();
+        modifiedFileName.renameTo(tempFileName);
+        originalFileName.renameTo(modifiedFileName);
+        tempFileName.renameTo(originalFileName);
+        modifiedFileName.delete();
     }
     /*public void modifyProductFile(String directoryPath) throws FileNotFoundException, IOException
     {

@@ -11,8 +11,8 @@ public class Content
     public String dupTarget="<target name=\"deploy\"> <echo>build eStudio and buildCPSSources carefully</echo>  </target>";
     public String referenceTarget="<target name=\"executeTests\"/>";
     public String directoryPath="/root/Desktop/original/";
-    public String originalTargets="depends=\"update_properties,prebuild_jar_update,pdebuild,extract_eStudiorcps,buildCPSSources,eStudio64bitpatch\" />";
-    public String toolsBuildTargets="depends=\"update_properties,prebuild_jar_update,pdebuild\" />";
+    //public String originalTargets="description=\"eStudio Product\" depends=\"update_properties,prebuild_jar_update,pdebuild,extract_eStudiorcps,buildCPSSources,eStudio64bitpatch\"/>";
+    public String toolsBuildTargets="<target name=\"deploy\" depends=\"update_properties,prebuild_jar_update,pdebuild\"/>";
 
     public String wineStudio32="eStudio-win-x86";
     public String wineStudio64="eStudio-win-x86_64";

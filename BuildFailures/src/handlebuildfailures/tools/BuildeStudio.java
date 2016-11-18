@@ -19,6 +19,7 @@ public class BuildeStudio
         extension = new BufferedReader(new InputStreamReader(System.in)).readLine();
         switch(extension.toLowerCase())
         {
+
             case "xml":
                 String option;
                 System.out.println("Are you changing the file to stop or start the tools build. Type one among Start or stop and press enter");
@@ -37,12 +38,14 @@ public class BuildeStudio
                     System.out.println("Please select the valid option");
                 }
                 break;
+
             case "product":
                 System.out.println("Enter the DirectoryPath");
                 directoryPath=new BufferedReader(new InputStreamReader(System.in)).readLine();
                 /*ManipulateBuildFileContent manipulateBuildFileContentProduct =new ManipulateBuildFileContent();
                 manipulateBuildFileContentProduct.modifyProductFile(directoryPath);*/
                 break;
+
             default:System.out.println("Please select the valid extension");
         }
     }
