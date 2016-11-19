@@ -14,12 +14,11 @@ import java.io.BufferedReader;
 
 public class ManipulateBuildFileContent extends Content
 {
-    String originalFile="build.xml", modifiedFile="output.xml", tempFile="temp.xml";
     File originalFileName=new File(directoryPath+originalFile);
     File modifiedFileName=new File(directoryPath+modifiedFile);
     File tempFileName=new File(directoryPath+tempFile);
     String contentInALine;
-    Content variableValues = new Content();
+
 
     public void stopToolsBuild() throws IOException
     {
@@ -28,15 +27,15 @@ public class ManipulateBuildFileContent extends Content
         StringBuffer stringBufferStop = new StringBuffer();
         while((contentInALine=bufferedReaderStop.readLine())!=null)
         {
-            if(contentInALine.contains(variableValues.renameTarget))
+            if(contentInALine.contains(renameTarget))
             {
-                contentInALine=contentInALine.replace(variableValues.renameTarget,variableValues.overwriteRenameTarget);
+                contentInALine=contentInALine.replace(renameTarget,overwriteRenameTarget);
                 stringBufferStop.append(contentInALine);
                 stringBufferStop.append("\n");
             }
-            else if(contentInALine.contains(variableValues.referenceTarget))
+            else if(contentInALine.contains(referenceTarget))
             {
-                contentInALine=contentInALine.replace(variableValues.referenceTarget,variableValues.referenceTarget+variableValues.dupTarget);
+                contentInALine=contentInALine.replace(referenceTarget,referenceTarget+dupTarget);
                 stringBufferStop.append(contentInALine);
                 stringBufferStop.append("\n");
             }
@@ -62,9 +61,9 @@ public class ManipulateBuildFileContent extends Content
         StringBuffer stringBufferStart=new StringBuffer();
         while((contentInALine=bufferedReaderStart.readLine())!=null)
         {
-            if(contentInALine.contains(variableValues.dupTarget))
+            if(contentInALine.contains(dupTarget))
             {
-                contentInALine=contentInALine.replace(contentInALine,variableValues.toolsBuildTargets);
+                contentInALine=contentInALine.replace(contentInALine,toolsBuildTargets);
                 stringBufferStart.append(contentInALine);
                 stringBufferStart.append("\n");
             }

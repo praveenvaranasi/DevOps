@@ -41,12 +41,15 @@ public class BuildeStudio
 
             case "product":
                 String OS;
+                int Bit;
                 ManipulateProductFileContent manipulateProductFileContent = new ManipulateProductFileContent();
                 System.out.println("Enter the operating System");
                 OS=new BufferedReader(new InputStreamReader(System.in)).readLine();
+                System.out.println("Enter the OS architechture Bit");
+                Bit=Integer.valueOf(new BufferedReader(new InputStreamReader(System.in)).readLine()).intValue();
                 if(OS.equalsIgnoreCase("windows"))
                 {
-                    manipulateProductFileContent.windows();
+                    manipulateProductFileContent.windows(Bit);
                 }
                 else if(OS.equalsIgnoreCase("linux"))
                 {

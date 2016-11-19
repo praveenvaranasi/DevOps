@@ -6,27 +6,90 @@ package handlebuildfailures.tools.setcontent;
 
 import handlebuildfailures.tools.content.Content;
 
-import java.io.*;
 
-public class ManipulateProductFileContent
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.FileWriter;
+import java.io.File;
+
+public class ManipulateProductFileContent extends Content
 {
-    Content values=new Content();
-
-    public void windows() throws FileNotFoundException, IOException
+    public ManipulateProductFileContent() throws FileNotFoundException
     {
-        String matter;
-        FileReader fileReaderProduct=new FileReader(values.directoryPath+"/eStudio.product");
-        BufferedReader bufferedReaderProduct=new BufferedReader(fileReaderProduct);
-        StringBuffer stringBufferProduct=new StringBuffer();
-        while((matter=bufferedReaderProduct.readLine())!=null)
+    }
+
+    File originalProductFileName=new File(directoryPath+orginalProductFile);
+    File modifiedProductFileName=new File(directoryPath+modifiedProductFile);
+    File tempProductFileName=new File(directoryPath+tempProductFile);
+
+    String productFileContent;
+    FileReader fileReaderProduct=new FileReader(originalProductFileName);
+    BufferedReader bufferedReaderProduct=new BufferedReader(fileReaderProduct);
+    StringBuffer stringBufferProduct=new StringBuffer();
+
+    public void windows(int Bit) throws IOException
+    {
+        if(Bit==32)
         {
-            stringBufferProduct.append(matter);
-            stringBufferProduct.append("\n");
+            while((productFileContent=bufferedReaderProduct.readLine())!=null)
+            {
+                if(productFileContent.contains(JreString))
+                {
+                    productFileContent=productFileContent.replace(productFileContent,jdk32Path);
+                    stringBufferProduct.append(productFileContent);
+                    stringBufferProduct.append("\n");
+                }
+                else if(productFileContent.contains(launcherString))
+                {
+                    productFileContent=productFileContent.replace(productFileContent,wineStudio32);
+                    stringBufferProduct.append(productFileContent);
+                    stringBufferProduct.append("\n");
+                }
+                else
+                {
+                    stringBufferProduct.append(productFileContent);
+                    stringBufferProduct.append("\n");
+                }
+            }
         }
-        FileWriter fileWriterProduct=new FileWriter(values.directoryPath+"/output.product");
+        else if(Bit==64)
+        {
+            while((productFileContent=bufferedReaderProduct.readLine())!=null)
+            {
+                if (productFileContent.contains(JreString))
+                {
+                    productFileContent=productFileContent.replace(productFileContent,jdk64Path);
+                    stringBufferProduct.append(productFileContent);
+                    stringBufferProduct.append("\n");
+                }
+                else if (productFileContent.contains(launcherString))
+                {
+                    productFileContent=productFileContent.replace(productFileContent,wineStudio64);
+                    stringBufferProduct.append(productFileContent);
+                    stringBufferProduct.append("\n");
+                }
+                else
+                {
+                    stringBufferProduct.append(productFileContent);
+                    stringBufferProduct.append("\n");
+                }
+            }
+        }
+        else
+        {
+            System.out.println("Please provide valid OS bit architechture");
+        }
+
+        FileWriter fileWriterProduct=new FileWriter(modifiedProductFileName);
         fileWriterProduct.write(stringBufferProduct.toString());
         fileWriterProduct.close();
         fileReaderProduct.close();
+        modifiedProductFileName.renameTo(tempProductFileName);
+        originalProductFileName.renameTo(modifiedProductFileName);
+        tempProductFileName.renameTo(originalProductFileName);
+        modifiedProductFileName.delete();
     }
 
     public void linux()
