@@ -81,7 +81,6 @@ public class ManipulateProductFileContent extends Content
         {
             System.out.println("Please provide valid OS bit architechture");
         }
-
         FileWriter fileWriterProduct=new FileWriter(modifiedProductFileName);
         fileWriterProduct.write(stringBufferProduct.toString());
         fileWriterProduct.close();
@@ -92,8 +91,35 @@ public class ManipulateProductFileContent extends Content
         modifiedProductFileName.delete();
     }
 
-    public void linux()
+    public void linux(int Bit) throws IOException
     {
-
+        while((productFileContent=bufferedReaderProduct.readLine())!=null)
+        {
+            if (Bit==32 && productFileContent.contains(launcherString))
+            {
+                productFileContent=productFileContent.replace(productFileContent,linuxeStudio32);
+                stringBufferProduct.append(productFileContent);
+                stringBufferProduct.append("\n");
+            }
+            else if (Bit==64 && productFileContent.contains(launcherString))
+            {
+                productFileContent=productFileContent.replace(productFileContent,linuxeStudio64);
+                stringBufferProduct.append(productFileContent);
+                stringBufferProduct.append("\n");
+            }
+            else
+            {
+                stringBufferProduct.append(productFileContent);
+                stringBufferProduct.append("\n");
+            }
+            FileWriter fileWriterProduct=new FileWriter(modifiedProductFileName);
+            fileWriterProduct.write(stringBufferProduct.toString());
+            fileWriterProduct.close();
+            fileReaderProduct.close();
+            modifiedProductFileName.renameTo(tempProductFileName);
+            originalProductFileName.renameTo(modifiedProductFileName);
+            tempProductFileName.renameTo(originalProductFileName);
+            modifiedProductFileName.delete();
+        }
     }
 }

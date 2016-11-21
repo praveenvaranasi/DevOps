@@ -27,8 +27,8 @@ public class Content
 
     public String wineStudio32="<launcher name=\"eStudio-win-x86\">";
     public String wineStudio64="<launcher name=\"eStudio-win-x86_64\">";
-    public String linuxeStudio32="eStudio-linux-gtk-x86";
-    public String linuxeStudio64="eStudio-linux-gtk-x86_64";
+    public String linuxeStudio32="<launcher name=\"eStudio-linux-gtk-x86\">";
+    public String linuxeStudio64="<launcher name=\"eStudio-linux-gtk-x86_64\">";
     public String jdk32Path="..\\jre1.8.0_92_32\\bin";
     public String jdk64Path="..\\jre1.8.0_92_64\\bin";
     public String launcherString="<launcher name=\"";

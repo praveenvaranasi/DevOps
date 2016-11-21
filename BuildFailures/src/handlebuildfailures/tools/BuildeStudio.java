@@ -53,7 +53,7 @@ public class BuildeStudio
                 }
                 else if(OS.equalsIgnoreCase("linux"))
                 {
-                    manipulateProductFileContent.linux();
+                    manipulateProductFileContent.linux(Bit);
                 }
                 else
                 {
