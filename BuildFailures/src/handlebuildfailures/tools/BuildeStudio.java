@@ -6,6 +6,7 @@ package handlebuildfailures.tools;
 
 import handlebuildfailures.tools.setcontent.ManipulateBuildFileContent;
 import handlebuildfailures.tools.setcontent.ManipulateProductFileContent;
+import handlebuildfailures.tools.plugins.SearchPlugins;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -59,6 +60,11 @@ public class BuildeStudio
                 {
                     System.out.println("Please the valid OS among windows and linux");
                 }
+                break;
+
+            case "info":
+                SearchPlugins searchPlugins = new SearchPlugins();
+                searchPlugins.searchInBundle();
                 break;
 
             default:System.out.println("Please select the valid extension");

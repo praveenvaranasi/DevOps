@@ -22,9 +22,9 @@ public class Content
     public String dupTarget="<target name=\"deploy\"> <echo>build eStudio and buildCPSSources carefully</echo>  </target>";
     public String referenceTarget="<target name=\"executeTests\"/>";
     public String directoryPath="/root/Desktop/original/";
+
     //public String originalTargets="description=\"eStudio Product\" depends=\"update_properties,prebuild_jar_update,pdebuild,extract_eStudiorcps,buildCPSSources,eStudio64bitpatch\"/>";
     public String toolsBuildTargets="<target name=\"deploy\" depends=\"update_properties,prebuild_jar_update,pdebuild\"/>";
-
     public String wineStudio32="<launcher name=\"eStudio-win-x86\">";
     public String wineStudio64="<launcher name=\"eStudio-win-x86_64\">";
     public String linuxeStudio32="<launcher name=\"eStudio-linux-gtk-x86\">";
@@ -33,4 +33,13 @@ public class Content
     public String jdk64Path="..\\jre1.8.0_92_64\\bin";
     public String launcherString="<launcher name=\"";
     public String JreString="..\\jre";
+
+    //file-names to copy plugins
+    public String bundles32="/root/Desktop/original/result/";
+    public String bundles64="/root/Desktop/original/org.eclipse.equinox.simpleconfigurator/";
+    public String bundleReference="x86_64";
+    public String bundle="bundles.info";
+    public String modifiedBundle="modifiedbundles.info";
+    public String tempBundle="tempbundles.info";
+
 }
