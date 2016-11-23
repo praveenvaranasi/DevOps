@@ -112,14 +112,14 @@ public class ManipulateProductFileContent extends Content
                 stringBufferProduct.append(productFileContent);
                 stringBufferProduct.append("\n");
             }
-            FileWriter fileWriterProduct=new FileWriter(modifiedProductFileName);
-            fileWriterProduct.write(stringBufferProduct.toString());
-            fileWriterProduct.close();
-            fileReaderProduct.close();
-            modifiedProductFileName.renameTo(tempProductFileName);
-            originalProductFileName.renameTo(modifiedProductFileName);
-            tempProductFileName.renameTo(originalProductFileName);
-            modifiedProductFileName.delete();
         }
+        FileWriter fileWriterProduct=new FileWriter(modifiedProductFileName);
+        fileWriterProduct.write(stringBufferProduct.toString());
+        fileWriterProduct.close();
+        fileReaderProduct.close();
+        modifiedProductFileName.renameTo(tempProductFileName);
+        originalProductFileName.renameTo(modifiedProductFileName);
+        tempProductFileName.renameTo(originalProductFileName);
+        modifiedProductFileName.delete();
     }
 }
