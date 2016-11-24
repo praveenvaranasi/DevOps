@@ -1,8 +1,13 @@
 package handlebuildfailures.tools.plugins;
 
 import handlebuildfailures.tools.content.Content;
-
-import java.io.*;
+import handlebuildfailures.tools.plugins.CopyPlugins;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.FileWriter;
+import java.io.File;
 
 /*
  * Created by root on 11/23/16.
@@ -10,6 +15,7 @@ import java.io.*;
 
 public class SearchPlugins extends Content
 {
+    CopyPlugins copyPlugins = new CopyPlugins();
     public void searchInBundle() throws FileNotFoundException, IOException
     {
         String bundleContent;
@@ -23,6 +29,10 @@ public class SearchPlugins extends Content
                 System.out.println(bundleContent);
                 stringBufferOccurences.append(bundleContent);
                 stringBufferOccurences.append("\n");
+                String plugins[]=bundleContent.split("/");
+                String finall[]=plugins[1].split(",");
+                System.out.println(finall[0]);
+                copyPlugins.copyPluginsToDest(finall);
             }
         }
         fileReaderBundle.close();
