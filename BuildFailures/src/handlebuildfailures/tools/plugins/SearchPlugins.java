@@ -19,7 +19,7 @@ public class SearchPlugins extends Content
     public void searchInBundle() throws FileNotFoundException, IOException
     {
         String bundleContent;
-        StringBuffer stringBufferOccurences=new StringBuffer();
+        StringBuffer stringBufferOccurencesInBundle=new StringBuffer();
         FileReader fileReaderBundle= new FileReader(bundles64+bundle);
         BufferedReader bufferedReaderBundle=new BufferedReader(fileReaderBundle);
         while((bundleContent=bufferedReaderBundle.readLine())!=null)
@@ -27,16 +27,22 @@ public class SearchPlugins extends Content
             if(bundleContent.contains(bundleReference))
             {
                 System.out.println(bundleContent);
-                stringBufferOccurences.append(bundleContent);
-                stringBufferOccurences.append("\n");
+                stringBufferOccurencesInBundle.append(bundleContent);
+                stringBufferOccurencesInBundle.append("\n");
                 String plugins[]=bundleContent.split("/");
                 String finall[]=plugins[1].split(",");
                 System.out.println(finall[0]);
-                copyPlugins.copyPluginsToDest(finall);
+                String plugin=finall[0];
+                //copyPlugins.copyJars(plugin);
+                File pluginFile=new File(directoryPath+plugin);
+                if(!pluginFile.exists())
+                {
+                    System.out.println("I'm not file");
+                }
             }
         }
         fileReaderBundle.close();
-        appendToBundle(stringBufferOccurences);
+        appendToBundle(stringBufferOccurencesInBundle);
     }
     public void appendToBundle(StringBuffer stringBufferOccurences) throws FileNotFoundException, IOException
     {
