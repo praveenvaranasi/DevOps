@@ -21,7 +21,8 @@ public class Content
     public String overwriteRenameTarget="<target name=\"deploy1\"";
     public String dupTarget="<target name=\"deploy\"> <echo>build eStudio and buildCPSSources carefully</echo>  </target>";
     public String referenceTarget="<target name=\"executeTests\"/>";
-    public String directoryPath="/root/Desktop/original/eStudio-64/plugins/";
+    //plugin source
+    public String directoryPath="D:\\plugins\\";
 
     //public String originalTargets="description=\"eStudio Product\" depends=\"update_properties,prebuild_jar_update,pdebuild,extract_eStudiorcps,buildCPSSources,eStudio64bitpatch\"/>";
     public String toolsBuildTargets="<target name=\"deploy\" depends=\"update_properties,prebuild_jar_update,pdebuild\"/>";
@@ -35,9 +36,10 @@ public class Content
     public String JreString="..\\jre";
 
     //file-names to copy plugins
-    public String bundles32="/root/Desktop/original/result/";
-    public String bundles64="/root/Desktop/original/eStudio-64/configuration/org.eclipse.equinox.simpleconfigurator/";
-    public String bundleReference="x86_64";
+    public String bundles32="C:\\Users\\Praveen\\Desktop\\Result\\jars\\";
+    public String bundles64="C:\\Users\\Praveen\\Desktop\\Shortcuts\\Office\\10565\\eStudio\\configuration\\org.eclipse.equinox.simpleconfigurator\\";
+    //public String pluginSource="";
+    public String bundleReference="x86";
     public String bundle="bundles.info";
     public String modifiedBundle="modifiedbundles.info";
     public String tempBundle="tempbundles.info";

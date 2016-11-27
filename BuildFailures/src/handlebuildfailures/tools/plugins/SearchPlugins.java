@@ -33,11 +33,18 @@ public class SearchPlugins extends Content
                 String finall[]=plugins[1].split(",");
                 System.out.println(finall[0]);
                 String plugin=finall[0];
-                //copyPlugins.copyJars(plugin);
                 File pluginFile=new File(directoryPath+plugin);
-                if(!pluginFile.exists())
+                if(!pluginFile.isDirectory())
+                {
+                    copyPlugins.copyJars(plugin);
+                }
+                else
                 {
                     System.out.println("I'm not file");
+                    File source=new File(directoryPath+plugin);
+                    File destination =new File(bundles32+plugin);
+                    System.out.println(source+"Destination"+destination);
+                    copyPlugins.copyPluginDirectory(source,destination);
                 }
             }
         }
