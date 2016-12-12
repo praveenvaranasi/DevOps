@@ -1,5 +1,6 @@
 <project name="compile" default="compileSources" basedir=".">
 	<target name="compileSources">
 		<javac srcdir="BuildFailures/src" destdir="BuildFailures/classes"/>
+		<jar destfile="buildfailures.jar" basedir="BuildFailures/classes"/>
 	</target>
 </project>
