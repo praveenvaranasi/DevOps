@@ -1,0 +1,193 @@
+<Container xmlns="http://fiorano.com/types/common">
+        <LOGGER LogLevel="4" ObjectName="Fiorano.Loggers:ServiceType=Logger,Name=Fiorano.Esb,type=config">
+        <Appender AppenderName="OutAppender" AppenderType="file"
+                  FileName="esbout.log" IsAppend="true"
+                  LogPattern="!ENTRY %n[%d{dd/MMM/yyyy HH:mm:ss}] %-5p [%c{1}] %m%n"
+                  MaxBackupIndex="4" MaxFileSize="1000000" MaxFilterLevel="10"
+                  MinFilterLevel="4" PrintTarget="System.out" ThresholdLevel="10"/>
+        <Appender AppenderName="Syslog4jEsbOutAppender" AppenderType="syslog" LoggingEnabled="false"
+                  Hostname="localhost" Protocol="udp" Port="514" Facility="local0"
+		          LogPattern="!ENTRY %n[%d{dd/MMM/yyyy HH:mm:ss}] %-5p [%c{1}] %m%n"
+                  MaxFilterLevel="10" MinFilterLevel="4" ThresholdLevel="10"/>
+        <Appender AppenderName="ErrAppender" AppenderType="file"
+                  FileName="esberr.log" IsAppend="true"
+                  LogPattern="!ENTRY %n[%d{dd/MMM/yyyy HH:mm:ss}] %-5p [%c{1}] %m%n"
+                  MaxBackupIndex="4" MaxFileSize="1000000" MaxFilterLevel="3"
+                  MinFilterLevel="1" PrintTarget="System.err" ThresholdLevel="10"/>
+        <Appender AppenderName="Syslog4jEsbErrAppender" AppenderType="syslog" LoggingEnabled="false"
+                  Hostname="localhost" Protocol="udp" Port="514" Facility="local1"
+                  LogPattern="!ENTRY %n[%d{dd/MMM/yyyy HH:mm:ss}] %-5p [%c{1}] %m%n"
+                  MaxFilterLevel="3" MinFilterLevel="1" ThresholdLevel="10"/>
+    </LOGGER>
+
+    <LOGGER LogLevel="3" ObjectName="Fiorano.Loggers:ServiceType=Logger,Name=Fiorano,type=config">
+        <Appender AppenderName="OutAppender" AppenderType="file"
+                  FileName="mqout.log" IsAppend="true"
+                  LogPattern="!ENTRY %n[%d{dd/MMM/yyyy HH:mm:ss}] %-5p [%c{1}] %m%n" MaxBackupIndex="4"
+                  MaxFileSize="1000000" MaxFilterLevel="10" MinFilterLevel="4"
+                  PrintTarget="System.out" ThresholdLevel="10"/>
+        <Appender AppenderName="Syslog4jMqOutAppender" AppenderType="syslog" LoggingEnabled="false"
+                  Hostname="localhost" Protocol="udp" Port="514" Facility="local2"
+                  LogPattern="!ENTRY %n[%d{dd/MMM/yyyy HH:mm:ss}] %-5p [%c{1}] %m%n"
+		          MaxFilterLevel="10" MinFilterLevel="4" ThresholdLevel="10"/>
+        <Appender AppenderName="ErrAppender" AppenderType="file"
+                  FileName="mqerr.log" IsAppend="true"
+                  LogPattern="!ENTRY %n[%d{dd/MMM/yyyy HH:mm:ss}] %-5p [%c{1}] %m%n" MaxBackupIndex="4"
+                  MaxFileSize="1000000" MaxFilterLevel="3" MinFilterLevel="1"
+                  PrintTarget="System.err" ThresholdLevel="10"/>
+        <Appender AppenderName="Syslog4jMqErrAppender" AppenderType="syslog" LoggingEnabled="false"
+                  Hostname="localhost" Protocol="udp" Port="514" Facility="local3"
+                  LogPattern="!ENTRY %n[%d{dd/MMM/yyyy HH:mm:ss}] %-5p [%c{1}] %m%n"
+		          MaxFilterLevel="3" MinFilterLevel="1" ThresholdLevel="10"/>
+    </LOGGER>
+
+    <LOGGER LogLevel="6" ObjectName="Fiorano.Loggers:ServiceType=Logger,Name=Monitoring,type=config">
+        <Appender AppenderName="OutAppender" AppenderType="file"
+                  FileName="monitor.txt" FilterPattern="" IsAppend="true"
+                  LogPattern="%d{dd/MMM/yyyy HH:mm:ss}%m%n"
+                  MaxBackupIndex="4" MaxFileSize="100000000" MaxFilterLevel="10"
+                  MinFilterLevel="4" PrintTarget="System.out" ThresholdLevel="10"/>
+        <Appender AppenderName="ErrAppender" AppenderType="file"
+                  FileName="monitor.txt" FilterPattern="" IsAppend="true"
+                  LogPattern="%d{dd/MMM/yyyy HH:mm:ss}%m%n"
+                  MaxBackupIndex="4" MaxFileSize="100000000" MaxFilterLevel="3"
+                  MinFilterLevel="1" PrintTarget="System.err" ThresholdLevel="10"/>
+        <Appender AppenderName="Syslog4jMonitorAppender" AppenderType="syslog" LoggingEnabled="false"
+                  Hostname="localhost" Protocol="udp" Port="514" Facility="local4"
+                  LogPattern="[%d{dd/MMM/yyyy HH:mm:ss}] %-5p [%c{1}] %m%n"
+		          MaxFilterLevel="10" MinFilterLevel="1" ThresholdLevel="10"/>
+    </LOGGER>
+
+    <LOGGER LogLevel="6" ObjectName="Fiorano.Loggers:ServiceType=Logger,Name=EsbDashboard,type=config">
+        <Appender AppenderName="LogAppender" AppenderType="file"
+                  FileName="Dashboard.log" FilterPattern="" IsAppend="true"
+                  LogPattern="[%d{dd/MMM/yyyy HH:mm:ss}]    %-10c{1}   %-10p %m%n"
+                  MaxBackupIndex="4" MaxFileSize="1000000" MaxFilterLevel="10"
+                  MinFilterLevel="1" PrintTarget="System.out" ThresholdLevel="10"/>
+        <Appender AppenderName="Syslog4jDashboardAppender" AppenderType="syslog" LoggingEnabled="false"
+                  Hostname="localhost" Protocol="udp" Port="514" Facility="local5"
+                  LogPattern="[%d{dd/MMM/yyyy HH:mm:ss}]    %-10c{1}   %-10p %m%n"
+		          MaxFilterLevel="10" MinFilterLevel="1" ThresholdLevel="10"/>
+    </LOGGER>
+
+    <LOGGER LogLevel="6" ObjectName="Fiorano.Loggers:ServiceType=Logger,Name=JettyLogger,type=config">
+        <Appender AppenderName="LogAppender" AppenderType="file"
+                  FileName="jetty.log" FilterPattern="" IsAppend="true"
+                  LogPattern="[%d{dd/MMM/yyyy HH:mm:ss}]    %-10c{1}   %-10p %m%n"
+                  MaxBackupIndex="4" MaxFileSize="1000000" MaxFilterLevel="10"
+                  MinFilterLevel="1" PrintTarget="System.out" ThresholdLevel="10"/>
+        <Appender AppenderName="Syslog4jJettyAppender" AppenderType="syslog" LoggingEnabled="false"
+                  Hostname="localhost" Protocol="udp" Port="514" Facility="local5"
+                  LogPattern="[%d{dd/MMM/yyyy HH:mm:ss}]    %-10c{1}   %-10p %m%n"
+		          MaxFilterLevel="10" MinFilterLevel="1" ThresholdLevel="10"/>
+    </LOGGER>
+
+    <LOGGER LogLevel="6" ObjectName="Fiorano.Loggers:ServiceType=Logger,Name=B2BLogger,type=config">
+        <Appender AppenderName="OutAppender" AppenderType="file"
+                  FileName="B2Bout.log" IsAppend="true"
+                  LogPattern="!ENTRY %n[%d{dd/MMM/yyyy HH:mm:ss}] %-5p [%c{1}] %m%n"
+                  MaxBackupIndex="4" MaxFileSize="1000000" MaxFilterLevel="10"
+                  MinFilterLevel="4" PrintTarget="System.out" ThresholdLevel="10"/>
+        <Appender AppenderName="Syslog4jB2BOutAppender" AppenderType="syslog" LoggingEnabled="false"
+                  Hostname="localhost" Protocol="udp" Port="514" Facility="local7"
+		          LogPattern="!ENTRY %n[%d{dd/MMM/yyyy HH:mm:ss}] %-5p [%c{1}] %m%n"
+                  MaxFilterLevel="10" MinFilterLevel="4" ThresholdLevel="10"/>
+        <Appender AppenderName="ErrAppender" AppenderType="file"
+                  FileName="B2Berr.log" IsAppend="true"
+                  LogPattern="!ENTRY %n[%d{dd/MMM/yyyy HH:mm:ss}] %-5p [%c{1}] %m%n"
+                  MaxBackupIndex="4" MaxFileSize="1000000" MaxFilterLevel="3"
+                  MinFilterLevel="1" PrintTarget="System.err" ThresholdLevel="10"/>
+        <Appender AppenderName="Syslog4jB2BErrAppender" AppenderType="syslog" LoggingEnabled="false"
+                  Hostname="localhost" Protocol="udp" Port="514" Facility="local8"
+                  LogPattern="!ENTRY %n[%d{dd/MMM/yyyy HH:mm:ss}] %-5p [%c{1}] %m%n"
+                  MaxFilterLevel="3" MinFilterLevel="1" ThresholdLevel="10"/>
+    </LOGGER>
+
+    <LOGGER LogLevel="6" ObjectName="Fiorano.Loggers:ServiceType=Logger,Name=WebManagement,type=config">
+        <Appender AppenderName="LogAppender" AppenderType="file"
+                  FileName="wmt.log" FilterPattern="" IsAppend="true"
+                  LogPattern="[%d{dd/MMM/yyyy HH:mm:ss}]    %-10c{1}   %-10p %m%n"
+                  MaxBackupIndex="4" MaxFileSize="1000000" MaxFilterLevel="10"
+                  MinFilterLevel="1" PrintTarget="System.out" ThresholdLevel="10"/>
+        <Appender AppenderName="Syslog4jWmtAppender" AppenderType="syslog" LoggingEnabled="false"
+                  Hostname="localhost" Protocol="udp" Port="514" Facility="local6"
+                  LogPattern="[%d{dd/MMM/yyyy HH:mm:ss}] %-5p [%c{1}] %m%n"
+		          MaxFilterLevel="10" MinFilterLevel="1" ThresholdLevel="10"/>
+    </LOGGER>
+    
+    <DEFAULT_OBJS_CONFIG BackupServerIp="192.168.2.60"
+                         BackupServerPort="1848"
+                         ObjectName="Fiorano.etc:ServiceType=MQDefObjCreater,Name=MQDefObjCreater,type=config"
+                         UpdateConnectURL="false"/>
+    <CONNECTION_MANAGER FMQServer="false"
+                        ObjectName="Fiorano.socketAcceptors.port-1:ServiceType=ConnectionManager,Name=ConnectionManager,type=config"
+                        Port="1847"/>
+    <COMMON_CONFIG AclBasedDestinationSecurity="true"
+                   AllowDurableConnections="true" BackupServerIp="localhost"
+                   BackupServerPort="1848" EnableAutoRevalidation="true"
+                   EnsureUniquenessOfClientId="true" LazyThreadCreation="true"
+                   ObjectName="Fiorano.etc:ServiceType=FMQConfigLoader,Name=FMQConfigLoader,type=config"
+                   PingEnabled="true" UpdateConnectURL="false"/>
+    <FMQ_KERNEL ExternalDeploymentLists="fes.lst" ExternalUnDeploymentLists="fes.lst"
+                ObjectName="Fiorano.HA.FMQKernel:ServiceType=FMQKernel,Name=FioranoFMQKernel,type=config"/>
+    <DB
+            ObjectName="Fiorano.mq.connection-consumer.FileDBManager:ServiceType=FileDBManager,Name=FileDBManager5,type=config"
+            Path="CONN_CONSUMER"/>
+    <DB
+            ObjectName="Fiorano.mq.ptp.databases.file.FileDBManager:ServiceType=FileDBManager,Name=FileDBManager6,type=config"
+            Path="PTP"/>
+    <DB
+            ObjectName="Fiorano.mq.pubsub.databases.file.FileDBManager:ServiceType=FileDBManager,Name=FileDBManager4,type=config"
+            Path="PUBSUB"/>
+    <DB
+            ObjectName="Fiorano.mq.pubsub.databases.file.FileDBManager:ServiceType=FileDBManager,Name=FileDBManager7,type=config"
+            Path="PSQ"/>
+    <DB
+            ObjectName="Fiorano.security.AclManager.FileDBManager:ServiceType=FileDBManager,Name=FileDBManager3,type=config"
+            Path="SDB/REALM.ACL"/>
+    <DB
+            ObjectName="Fiorano.security.PrincipalManager.FileDBManager:ServiceType=FileDBManager,Name=FileDBManager2,type=config"
+            Path="SDB/REALM.PRINCIPAL"/>
+    <DB
+            ObjectName="Fiorano.mq.pubsub.databases.file.FileDBManager:ServiceType=FileDBManager,Name=FileDBManager8,type=config"
+            Path="LVC/Topics"/>
+    <DB
+            ObjectName="Fiorano.mq.pubsub.databases.file.FileDBManager:ServiceType=FileDBManager,Name=FileDBManager9,type=config"
+            Path="LVC/Subscribers"/>
+
+    <HA_CONNECTION_MANAGER
+            ObjectName="Fiorano.HA.HAConnectionManager:ServiceType=HAConnectionManager,Name=FioranoHAConnectionManager,type=config"
+            Port="1747"/>
+    <HA_KRPCPROVIDER BackupHAIPAddress="192.168.2.60" BackupHAPort="1748" BackupRMIServerPort="2048"
+                     ObjectName="Fiorano.HA.HAKRPCProvider:ServiceType=HAKRPCProvider,Name=FioranoHAKRPCProvider,type=config"/>
+    <JMX_CONNECTOR_TYPE
+            ObjectName="Fiorano.jmx.connector:ServiceType=JMXConnector,Impl=JMS,Name=JMSBasedJMXConnector2,type=config"
+            Password="passwd"/>
+    <RMI_CONNECTOR
+            ObjectName="Fiorano.jmx.connector:ServiceType=JMXConnector,Impl=RMI,Name=RMIBasedJMXConnector,type=config"
+            RMIServerPort="2047" RmiPortExportObjects="2047"/>
+    <JMX_ENGINE
+            ObjectName="Fiorano.jmx.engine:ServiceType=JMXEngine,Name=ClientJMXEngine,type=config"
+            Password="passwd" ServerPort="1856"/>
+    <!--<PTP_MANAGER EnableMessageMonitoring="true" ObjectName="Fiorano.mq.ptp:ServiceType=PtPManager,Name=QueuingSubSystem,type=config"/>-->
+    <PUBSUB_MANAGER IsForceFullyKillDSubscriber="true"
+                    ObjectName="Fiorano.mq.pubsub:ServiceType=PubSubManager,Name=TopicSubSystem,type=config"/>
+    <DB_MANAGER
+            ObjectName="Fiorano.etc:ServiceType=RdbmsDBManager,Name=RdbmsDBManager,type=config" Password=""/>
+    <RPL_HA_MANAGER GatewayServerIPAddress="192.168.2.60" LockFile="/home/praveen/Documents/Career/Testing/Migration/lock/1020fes.txt"
+                    ObjectName="Fiorano.HA.HAManager:ServiceType=RpManager,Name=FioranoHAManager,type=config"
+                    Primary="true"/>
+    
+    <AuditEventHandler ObjectName="Fiorano.etc:ServiceType=AuditManager,Name=AuditManager,type=config" AuditEventsFolderName="Audit" PoliciesFolderName="Policies" FiltersFolderName="Filters" SearchFiltersFileName="searchFilters" StorageFiltersFileName="storageFilters">
+        <StorageHandler HandlerType="Storage" FileName="Policy.log">
+            <FileStorageHandler StorageHandlerName="FileStorageHandler1"/>
+        </StorageHandler>
+    </AuditEventHandler>
+
+    <!--This Property added for Not to Start MQ Jetty Server with esb profiles-->
+    <JETTY_SERVICE_CONFIG EnableStart="false"
+                          ObjectName="Fiorano.etc:ServiceType=JettyServer,Name=JettyServer,type=config"/>
+    <TRANSPORT_MANAGER ObjectName="Fiorano.Esb.Transport:ServiceType=TransportManager,Name=FESTransportManager,type=config">
+        <MQProvider ConnectionFactory="SERVICEPROVIDERLTCF" UserName="admin"/>
+    </TRANSPORT_MANAGER>
+</Container>
