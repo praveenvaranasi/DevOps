@@ -1,0 +1,315 @@
+Shell Scripting Introduction:
+
+	- Steve Bourne wrote the Shell (sh) which appeared in the Seventh Edition Bell Labs Research version of unix
+	- BASH (Bourne Again Shell) is the enhanced version of shell which acts as the shell program on most linux systems
+	- Command line entries will be preceeded by the dollar sign ($). If your prompt is different, enter the command
+
+		command: export PS1="$ " (In this way, we can set the prompt to anything what we wish)
+
+	- echo "hi" > save.txt 		---> Creates save.txt file and writes the content "hi" to it
+	- echo "hello" >> save.txt  ---> appends the content to the save.txt file
+
+Philosophy: 
+
+	* grep "<String>" <path_to_file> - Returns the matching lines of the String
+	- This is about indentation and advantages, disadvantages of the Shell Scripting
+
+First Script: 
+
+	- Line that starts with # is considered as a Comment line. It gets ignored by the Shell Interpreter
+	- #! /bin/sh - #! is considered as a special directive in shell and the content followed by tells what to use for interpretation
+
+	* Behaviour of 'echo' command:
+		- content passed without the Quotes to echo are considered as Parameters 
+		- echo strips the spaces in between the 'parameters' and will print as single space 
+			
+			Ex: echo Hello      World						O/P: Hello world
+
+		- Content passed within the Quotes to echo command are considered as String parameters and prints on the console
+		
+			Ex: echo "Hello    World"						O/P: Hello    World
+
+		- Content passed within the `` is considered as single command, executes it and prints the result on the console
+
+			Ex: echo `pwd`									O/P: /root/Desktop
+			
+Variables:
+
+	- No Datatypes similar to python
+	- There must be no spaces around the '=' symbol when assigning the value. Shell treats '=' as a variable assignment command
+	
+			Ex: Company=Fiorano
+			
+	- If there exists space, then it'll be considered as parameters instead of assignment. 
+	
+			Ex: Company = Fiorano
+			
+		- Results in error after the execution of the above example as the shell considers every word as a command
+		
+	- 'read' command allows us to set the variable values interactively. Ex: (read <variableName>)
+	- 'read' command puts double quotes around the input what user has given. So user can directly retrieve the value using '$variableName'
+	
+		
+	Scope of Variables:
+		
+		- Trying to print undeclared variable results in printing an empty string. This can cause subtle bugs.
+		- When the #! appears to the interpreter, it starts another shell till the newly opened shell executes the script.
+		
+		- If we want a variable to be set for the terminal, we need to use "export <variableName>=<value>"		
+		- Apart from 'export', we can also have the changes in terminal by loading/source the script. The following is the way...
+		
+				$ . ./<script>.sh  - This loads the Script contents into the terminal. The variables and functions in the script can be used in the entire session of the terminal
+		
+		Accessing variable and appending/concatenating it some other string is little bit tricky. Follow the following while doing that.
+		- <variable>=<value>
+		- echo $<variable>_file   --> This throws the error as it unable to concatenate
+		- echo ${<variable>}_file --> This perfectly concatenates the variable value with the file
+		
+	Escape Characters ( \ ):
+	
+		- Shell interpretes few characters though they are inside the Quotes like $, `, \ etc.,
+		- Escape characters like back slash ( \ ) make  the interpreter to stop interpreting them when they are inside Quotes. Few examples are shown below
+		
+			Ex: x=5
+				
+				echo "A Quote is \", dollar is \$ and back tick is \` "  O/P: A Quote is ", dollar is $ and back tick is `
+				
+				echo "This is a backslash \\ and the value of \$x is $x"  O/P: This is backslash \ and the value of $x is 5
+				
+	Loops:
+	
+		- Please go through examples in the GIThub Repo 'ShellScripting'
+		- for loop works in normal manner
+		- While has different scenarios
+			- we can just loop normal cases
+			- Also we can parse 'line by line' in a file using while (Modify your MAC failure check using loops in build Process)
+		- Handy Scripts: 
+			Ex: mkdir {a,b,c,d}.s 	--> Creates folders names a.s, b.s, c.s, d.s directories 
+				 rm -rf {a,b,c,d}.s 	--> Deletes the folders named a.s, b.s, c.s, d.s directories 
+				 
+	Test( [ ):
+			
+		- [ is a program like other unix commands (ls, pwd, ssh etc.,) which gets interpreted as 'test' command
+			- As space must be there around every unix command, test ('[') should be having spaces around it. Otherwise it leads to execution failure
+		- "=" operator is used for String comparison and "-eq" is used for Integer comparison
+		- If we write a program called 'test.sh' and execute it, Shell builtin ([) will be executed instead of our program (Same with others, but test is 
+		  the word we normally use when trying new things)
+		- Test is most commonly invoked by the 'if' and 'while' statements. 
+			
+			if syntax: 
+
+						if [ .. ]
+						 then 
+							#if - code
+						 else
+							#else - code
+						fi
+
+					- 'fi' is 'if' backwards. The same is with 'case' and 'esac'
+					- 'if' and 'then' commands should be on different lines. If we want to place'em on same line, we can use semicolon ';' to separate them
+
+							if [ .. ] ; then
+								#if-code
+							 else
+								#else - code
+							fi
+
+					- Though there's no need of else, we should close 'if' with 'fi' only
+					- we can also use 'elif(else if)' like this
+
+							if [ .. ]; then 
+								#if-code
+							 elif ; then
+								#else if code
+							 else
+								echo "none of the above" 
+							fi
+		
+					** 'if' must have 'then' and 'else' command and must be closed with 'fi' at the end
+
+			Simpler way of writing 'if' statement: 
+
+				[ -f $x] 	&&	echo "x is a file" || echo "x is not a file"  
+				
+				The above line of code is equivalent to:
+				
+					if [ -f $x ]
+					 then
+						echo "x is a file"
+					 else
+						echo "x is not a file"
+					fi
+					 
+
+	Operators:
+
+		- The following are the operators that must be used with integers
+
+			Operator	-		Description
+			 -eq		-		 Compares two integers for equality
+			 -ne		-		 Checks for unequality of Integers
+			 -lt		-		 Less than
+			 -gt		-		 Greater than
+			 -le		-		 Less than or equal to
+			 -ge		-		 Greater than or equal to
+			 
+		- Operators that should be used with Strings
+
+			Operator	-		Description
+			 =			-		 Checks matching of two Strings
+			 !=			-		 Checks unmatching of two Strings
+
+		- miscellaneous	operators
+
+			Operator	-		Description
+			 -n			-		 Checks for non-zero length
+			 -f			-		 Checks whether the path is of file or not
+			 -x			-		 Checks whether the path is of executable file or not
+			 -nt		-		 Checks whether the file is 'newer than' the other or not
+			 -ot		-		 Checks whether the file is 'older than' the other or not
+			 -a, -e		-		 both means file exists
+			 -S			-		 file is a Socket
+			 -O			-		 file is owned by user
+			 -ef		-		 path refers to the same file
+			 ||			-		 Or operator that will be used in simple if statement syntax
+			 \			-		 Tells the shell that next line is continuous to the present one
+			 
+		Note:		 The "/dev/null 2>&1" directs any output or errors to the special device 'null' instead of going to user's screen
+		
+	Case statement:
+	
+		read Input_String
+		case $Input_String in 
+			hello)
+				echo "Hello Dude"
+				;;
+			bye)
+				echo "See you again!!"
+				break
+				;;
+			*)								# default catch-all condition, it is not required, but its often useful for debugging purposes
+				echo "Sorry, I didn't get you"
+				;;
+		esac
+		
+		
+	Variables (Part-2):
+		
+		-> There are a set of variables which are set already for us and most of these values can't be assigned to them
+		-> These will contain useful information, which can be used by the script to know about the environment in which it's running
+		The first set of variables are $0 - $9, $@ and $#
+		
+		$0		- This variable returns the basename of the program as it was called
+		$1-$9	- These are the first 9 additional parameters the script can be called with
+		$@		- Contains all the parameters (a list containing all the parameters)
+		$#		- returns the n.of parameters the script was called with
+		
+		* $@ and $* are similar. But $* doesn't preserve any whitespace and quoting. So "File with spaces" becomes "File" "with" "spaces"
+		* As a General rule, use $@ avoid $*
+		We can also more than 9 parameters using shift command in the following way:
+		
+				while [ "$#" -gt "0" ]
+				do
+					echo "\$1 is $1"
+					shift
+				done
+		
+		$? :
+		
+			Another special variable is $?. This contains the exit value of the last run command		
+			- If the exit value is 0 (zero), it's said to be successfully executed
+			- If the exit value is other than zero, its said to be failure
+			
+				Ex: #! /bin/sh
+					/usr/local/bin/my-command 
+					if [ "$?" -ne "0" ] ; then
+						echo "Something has gone wrong"
+					fi
+		
+		$$ and $! : 
+		
+			The other main variables set for our environment are $$ and $!
+			- The $$ variable is the ProcessId (Pid) of the currently running shell
+			- The $! variable is the PID of the last run background Process. This is useful to keep track of the process as it gets on with its Job
+			
+			$$ - This can be useful for creating temporary files, such as /tmp/my-script.$$ which is useful if many instances of the script could be run-
+			- at the same time, and they all need thier own temporary files
+	
+		IFS (Internal Field Separator):
+		
+			The default value of IFS is space, tab, newline. If we change the default value to some other, Its better to change it back to default value-
+			when we are done with our works
+			
+				Ex: old_IFS="$IFS"						# Try to surround IFS with double quotes always
+					IFS=":"
+					echo "Input String that's separated by colons.."
+					read x y z
+					IFS="$old_IFS"
+					echo "x is $x, y is $y, z is $z"
+					
+				I/P: Hello:Hi:Bye
+				O/P: x is Hello, y is Hi, Z is Bye
+					
+			
+	{} Usefulness: 
+	
+		- Usually, Curly brackets avoid a variable confusion
+		- These fancy brackets have much more powerful use. We can deal with issues of variables being undefined or null
+		
+		Using Default Values:
+		
+			- The operator -en (bash and csh), \c (for dash, bourne and other compliant shells), ksh understands both forms when passed to echo avoids line break
+			- The following example prompts for input but accepts defaults (if the user hasn't given input)
+				
+				Ex: 
+					#! /bin/sh
+					echo -en "Whats your name [ `whoami` ]"
+					read input
+					if [ -z "${input}" ] ; then
+						input=`whoami`
+					fi
+					echo "your name is ${input}"
+					
+					O/P: Whats your name [ subbu ]
+						 your name is subbu
+						 
+					
+				- We can default in 2 more ways:
+					- echo "your name is: {input:-`whoami`}
+					- echo "your name is: {input:=subbu}"
+					- In the first one, shell evaluates the command and sets the variable. In the second one, we are setting it defaultly
+					
+	ExternalPrograms: Go through cut, grep, find, expr etc.,
+	
+	Functions:
+	
+		Functions can be written in 2 ways for shell script		
+		1. The function is simply created in a file as it is called
+		2. We can write a library file which contains functions. When we want to use those functions, we just need to source the library first
+		
+		- Function returns a value and doesn't output anything. Procedures may not return a value, but produces output
+		- we usually call shell functions as function/functions
+		
+		A function may return a value in four different ways		
+		1. Change the state of a variable or variables
+		2. use the exit command to end the shell script
+		3. use the 'return' command to end the function and return the value to the called function
+		4. echo 'output' to stdout, which will be caught by caller just as c=`expr $a + $b` is caught
+		
+		Function declaration example: 
+		
+			example_func()
+			{
+				echo "This is example function"
+			}
+			
+			example_func 	# Invoking the function defined
+			
+			
+		* The shell function when exits can't change it parameters, though it can change its global parameters
+		* no scope of variables in shell Scripting
+		* Recursion is also available in shell script
+		** Go through return codes
+		
+		
+		

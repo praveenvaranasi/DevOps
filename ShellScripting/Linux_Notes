@@ -1,0 +1,571 @@
+Shell
+
+	Identifying the User by looking at the Terminal:
+
+	- If '#' is at the last character of shell prompt, it indicates you are operating as the "Super User"
+		- Super user usually have administrator privileges. It can delete/modify/delete any file on the system which is dangerous
+	- If '$', User is non super user
+
+Navigation
+
+	cd, pwd and ls are the navigation commands
+	
+	Shortcuts:
+
+	* cd ~<username> = takes the shell into username's home
+	* cd - = Changes the working directory to previous one
+
+	FileNames:
+	-  Filenames that begin with a period character are hidden. The command 'ls' doesn't list all the files, But 'ls -a' does
+	-  Filenames are case-sensitive in linux
+	-  Linux has no concept of File extension
+	-  Donot embed punctuation characters and spaces in file names. Instead limit them to period (.), underscore and dash character
+
+Looking around
+
+	Few Commands:
+
+	ls: 
+		lists the contents in the current directory. following are the options for ls command
+
+		ls -l 			: gives the content Info in long format (permissions, owner, group, size, Modification time, File Name)
+		ls -a 			: lists the hidden files along with unhidden ones (files starts with . are said to be hidden files)
+		ls -la			: combines both the above operations and gives the results
+		ls <dir path> 	: lists the contents of 'dir path' directory 
+		ls -Rl			: lists the files recursively in all the subdirectories
+
+
+	less:
+		 less is a program that lets us to view text files.
+
+		Usage: less <text file name>
+
+		Shortcuts to navigate: 
+
+		~ G takes you to the end of the file
+		~ 1G takes you to the starting of the file
+		~ Page up and page down buttons has their normal functionality
+		~ '/<characters>' search for those characters in the file and highlights them
+		~ 'n' repeats the previous search
+		~ 'q' quits the file view and exits the program
+		
+	file:
+		'file' command with filename as parameter tells you what kind of file it is
+
+		Usage: file <file-name>
+
+Guided Tour
+
+	Go through the link's content: http://linuxcommand.org/lc3_lts0040.php
+
+Manipulating Files
+
+	Wild Cards (Pattern Matching Concept in Shell):
+
+		*			- Matches any characters
+		?			- Matches any single character
+		[characters]- Matches any character that is a member of the set characters. The set of characters may also be expressed as 'POSIX Character Classes'
+		
+			POSIX Character classes
+			[:alnum:] - Alphanumeric characters
+			[:alpha:] - Alphabetic characters
+			[:digit:] - Numeral characters
+			[:upper:] - Uppercase Alphabetic characters
+			[:lower:] - Lowercase Alphabetic characters
+
+			- All the above PCC represents single characters
+
+		[!characters]- Matches any character that is not a member of the set characters
+
+	Few Commands: 
+
+	cp: 
+		copies file[s] and directorie[s]
+
+		variants: 
+		
+		*cp file1 file2 - copies the contents of file1 to file2. If file2 doesn't exist, its created. Otherwise just copies the content by overwriting the file 
+		*cp -i file1 file2  - same behaviour as above. But when overwriting, the user is prompted before its overwritten with the contents of file1
+		*cp file1 dir1		- Copies the contents of file1 to file1 inside dir1. creates if not exists. If exists, Overwrites
+		*cp -R dir1 dir2	- Copies the contents of dir 1. If dir2 doesn't exist, its created. Otherwise it creates dir2 and dir1 gets copied into dir2
+
+	mv:
+		Moves or renames the file depends on how its used
+
+		variants:
+
+		* mv file1 file2	- If file2 doesn't exist, the file's renamed to file2. If exists, replaces the contents the file2 silently
+		* mv -i file1 file2 - user is prompted when overwriting in the above behaviour
+		* mv f1 f2 f3 dir1	- The files f1, f2, f3 gets moved into dir1. If dir1 doesn't exist, it exits with an error
+		* mv dir1 dir2		- renames dir1 to dir2 if dir2 doesn't exist. If exists, dir1 gets moved inside dir2
+
+	rm:
+		Removes files and directories
+
+		variants:
+		
+		* rm file1 file2	- Deletes file1 and file2
+		* rm -i file1 file2 - user is prompted for each file deletion
+		* rm -r dir1 dir2	- deletes dir1 and dir2 along with thier contents
+
+		'rm' COMMAND IS DANGEROUS BECAUSE WE DONT HAVE AN UNDELETE COMMAND. BE CAREFUL WHILE USING THIS COMMAND. WHEN NOT PASSING -f PARAM, THE USER IS PROMPTED
+		FOR EACH DELETION, IF WE PASS -f, NO PROMPT. IT JUST DELETES
+
+	mkdir: 
+		is used to create directories
+
+		variants: 
+		
+		* mkdir dir		- Creates dir if not exists
+		* mkdir --parents dir1/dir2  (or)  mkdir -p dir1/dir2 - creates the directory structure
+
+Working with Commands
+
+	Commands are of 4 kinds in Linux
+
+	1. Executable Program 	- like all those files we see in /usr/bin. Within this, the Programs can be 'compiled binaries' written in C or C++.
+							- Also programs written in Scripting languages like python, R, shell etc will be here	
+	2. Shell Builtin Commands
+	3. A Shell Function		- can be user's or shell's
+	4. An alias				- commands that can define yourselves, built from other commands
+
+	* 4 commands tells us how to know about commands. They're 'type, which, help and man'
+
+	type	- Displays Info. about command type
+	which	- locate a command
+	help	- Display reference page for shell builtin
+	man		- Display an on-line command reference
+
+	type
+
+		'type' is a shell builtin command that  displays the kind of command the shell will execute when given a particular command name. It works like this
+
+		Usage: type command 
+
+	which
+
+		To determine the exact location of a given executable, the 'which' command is used (Useful when there is more than one version of Program installed in a system)
+
+	help
+
+		bash has a builtin facility available for each of the shell builtins. To use it, type 'help <command>' and enter in the terminal. This gives you the help
+		- Optionally, you can add '-m' option to change the format of the output.
+
+	--help
+
+		Many executable programs support '--help' option that displays description of the command's supported syntax and options
+
+	man
+
+		Most executable programs intended for command line use provide a formal piece of documentation called a 'manual or man' page. 'man' uses less command to 
+		open the doc files in terminal
+	
+
+I/O Redirection:
+
+	Standard Output:
+	
+		To redirect standard output (console) of a command to file, use '>' in the following way
+			ex: ls > file.txt
+		
+		Instead of overwriting the file each time with the same command specified above, we can append the content using this symbol '>>'
+			ex: ls >> file.txt
+			
+	Standard Input:
+	
+		To redirect standard Input (from Keyboard) 	from a file instead of Keyboard, use '<' symbol
+			ex: sort < file.txt  --Sorts and prints the file context on the console
+			
+		To redirect standard Input to file and the sorted result to file, do like this
+			ex: sort < file.txt > sorted_file.txt
+			
+	Pipelines: 
+	
+		The most useful thing and powerful thing we can do with I/O redirection is to connect multiple commands together with what are called Pipelines. With Pipelines,
+		the standard output of one command is fed into the standard input of other. Here is the most useful command: 
+		
+		ex: ls -l | less
+		
+		
+			
+Expansion:
+
+		Each time we type a command line and press the enter key, Bash perform several processes upon the text before it carries out your command. we have seen a couple
+	of cases how a simple character sequence.  For ex. * , can have a lot of meaning to the shell. The process that makes this happen is called Expansion.
+	
+		Ex: echo * - in a directory gives all the files and folder names in that Directory.
+		
+	Pathname Expansion:
+	
+		ls 				- gives the list of all the files and directory
+		echo D*			- gives the list of files and directories that starts with letter 'D'
+		echo *s			- gives the list of files and directories that ends with letter 's'
+		echo [[:upper:]]* - gives the list of files and directories that starts with Capital letter
+		echo /usr/*/bin - lists all the directories that exists with /usr/<any folder name>/bin 
+		
+	Tilde Expansion:
+	
+		echo ~		- gives the home of current user
+		echo ~<user>- gives the home of user
+		
+	Arithmetic Expansion: 
+	
+		Arithmetic expansion uses the form $((expression)) where expression is an arithmetic expression consisting of values and expressions
+		- AE only supports Integers (whole numbers, no decimals) but can perform a quite n.of operations
+		- Spaces aren't significant in arithmetic expressions and expressions may be nested
+		
+		Ex: echo $((2+2)) - 4
+			echo $(($((5**2))*3)) - 75
+				
+	Brace Expansion: 
+	
+		The Strangest Expansion is the Brace Expansion. With this, we can create multiple text strings from a pattern containing braces.
+
+		Ex: echo Front-{A,B,C}-Back results in : Front-A-Back Front-B-Back Front-C-Back
+
+		- Patterns to be brace expanded may contain a leading portion called a Preamble and trailing portion called PostScript.
+		- The Brace expression itself may contain either a comma separated list of Strings, or range of Integers or single characters.
+		- The pattern may not contain embedded whitespace
+
+		Ex: echo {1..5} - 1 2 3 4 5 
+			echo ${A..D} - A B C D
+
+		- Brace expressions may also be nested
+
+		Ex: echo A{{1,s},{2,d}}B - A1B AsB A2B AdB
+
+		- The brace expansion is good to use when we need to create large n.of files/directories. for ex. a photographer needs to store all the files year wise since 20 years
+		Creating all the folders and files manually is a gigantic task and error prone too. Brace expansion works perfectly in this case
+
+	Parameter Expansion:
+		
+		Its nothing but accessing the paramters using '$<parameter>'
+
+		*** To print all the Environment variables use 'printenv' command in the following way. We can also use 'env' commands
+			Ex: printenv - lists all the environment variables. env also does the same
+				echo $USER - root
+
+	Command Substitution:
+
+		Command substitution allows us to use the output of a command as an expansion
+
+		Ex: echo $(ls) : Lists all the contents of the present directory
+
+			ls -l $(which pwd) : -rwxr-xr-x 1 root root 31656 Mar 23  2017 /bin/pwd
+
+			ls -l `which pwd` : -rwxr-xr-x 1 root root 31656 Mar 23  2017 /bin/pwd
+
+
+Quoting:
+
+	We've seen how many ways the shell performs expansions, it's time to learn how to control it
+	
+	** echo this is a		test - this is a test
+		echo The total is $100	 - The total is  00
+
+	-> In the above examples, word splitting in shell has removed extra whitespaces  in the passed parameters. In the second one, shell has considered $100 as $1 & 00. 
+		$1 looks for the parameter which didnt gets passed.
+
+	Double Quotes:
+
+		The first type of quoting we ll look at is DoubleQuotes. If you place text inside double quotes, all the special characters used by shell lose their special meaning
+	and are tested as Special characters.
+	- The exceptions are "$", "\"(backslash) and "`" (back-tick or backquote).
+	- This means that word-splitting, tilde expansion, pathname expansion and brace expansion are suppressed. But parameter, arithmetic and command substitution are still
+	  carried out. 
+
+	Single Quotes:
+
+		If we want to suppress all expansions, you use single quotes. Here is a comparison on unquoted, quotes and double quotes.
+	
+	ex: echo text ~/*.txt {a,b} $(echo foo) $((2+2)) $USER -- text /root/log.txt a b foo 4 root
+
+		echo "text ~/*.txt {a,b} $(echo foo) $((2+2)) $USER" --  text ~/*.txt {a,b} foo 4 root
+
+		echo 'text ~/*.txt {a,b} $(echo foo) $((2+2)) $USER' -- text ~/*.txt {a,b} $(echo foo) $((2+2)) $USER
+
+	*** Finally, for each succeeding level of quoting, more and more of the expansions are suppressed. ***
+
+Escape Characters:
+
+	Sometimes, we only want to quote a single character. To do this, we need to precede the character with escape character called \
+		- This can be done inside double quotes too
+		- $, &, !, " can be quoted with escape character that results in printing the characters
+		- To print '\', we can use '\\'
+
+More BackSlash Tricks:
+
+	\n - newline - Adding blank lines to text
+	\t - tab	 - Inserting horizontal tabs to text
+	\a - alert   - Makes our terminal to make beep sound
+	\\ - backslash - Inserts a backslash
+	\f - formfeed- Sending this to your printer ejects the page
+
+	- To use the above backslash characters with echo command, we need to use "echo -e "
+
+	 Ex: echo -e "Inserting new line \n Inserting tabs \t  and alerting the user \a and showed backslash \\"
+		
+		Inserting new line 
+		Inserting tabs 	  and alerting the user  and showed backslash \
+		
+		
+Permissions: 
+
+	The UNIX like operating systems, such as Linux differ from other computing systems in that they are not only Multi-tasking, but also Multi-User
+	- Though the system is having one keyboard and one mouse, it can be still used by more than one user using SSH
+	- In fact, remote user can also execute Graphical applications and have the output displayed in Remote Computer. This is supported using 'X Window System'
+	
+	Need of Unix OS has come from Mainframe computer in University and the terminals from it have been given to Students. As security is needed, LinuxOS have
+	been evolved.
+	
+	This topic will cover the following commands:
+	
+	1. chmod	- Modify file access rights
+	2. su		- Temporarily become the Super-user
+	3. sudo		- Temporarily become the Super-user
+	4. chown	- Change a file's ownership
+	5. chgrp	- Change a file group's ownership
+	
+	File Permissions
+	
+		On a Linux System, each File & Directory is assigned "access rights for the owner of a file, the members of the group of related program & everybody else"
+		- Rights can be assigned to read, write and execute a file
+		
+		* To see the Permissions of a file or directory, we can use the 'ls' command along with '-l' option 
+		
+		Ex: $ ls -l $(which sh)
+			-rwxr-xr-x 1 praveen 197121 2088441 Feb 15  2017 /usr/bin/sh
+			  
+			$ ls -l
+			total 4
+			drwxr-xr-x 1 praveen 197121 0 Jan 23 09:15 shellscripting/
+			drwxr-xr-x 1 praveen 197121 0 Nov 15 00:01 STF/
+			
+			$ ls -l /bin/bash
+			-rwxr-xr-x 1 root root  316848 Feb 27  2000 /bin/bash
+
+		From the above example, we can see:
+		
+		* The file /bin/bash is owned by user 'root' and group 'root'
+		* Members of the group root can also read and execute the file
+		** The Super-user has the right to read, write and execute the file
+		* Everybody else (Others) can read and execute the file
+		
+			In the Diagram below, we see how the first portion of the listing is Interpreted. It consists of a character indicating the file type, followed by 3 
+		sets of three characters that convey the reading, writing and execution permission for the Owner, group and everybody else
+			
+		- rwx r-x r-x
+		
+		> First character '-' indicates regular file, 'd' indicates directory
+		> Next first 3 characters indicates Read, write and execute permissions for the file's Owner
+		> The second 3 characters indicates Read, write and execute permissions for the group Owner of the file
+		> The last 3 characters indicates read, write and execute permissions for all the Other users
+			
+	chmod:
+	
+		The 'chmod' command  is used to change the file permissions of a file or directory. To use it, you specify the desired permission settings and the file
+	or files that you wish to modify. There are two ways to specify the permissions.
+	
+		Octal notation method:
+		
+			rwx rwx rwx = 111 111 111
+			rw- rw- rw- = 110 110 110
+			rwx --- --- = 111 000 000
+			
+			and so on... 
+			rwx = 111 in binary = 7
+			rw- = 110 in binary = 6
+			r-x = 101 in binary = 5
+			r-- = 100 in binary = 4
+			
+			Ex: chmod 600 file -> represents that Owner can read & write the file, but cant execute the file, Others dont have any rights.
+		
+		Directory Permissions:
+		
+			The 'chmod' command can also be used to control the access permissions for Directories. Again, we can use the Octal notation to set permissions, but 
+			the meaning of r, w and x attributes is different: 
+		
+			r - Allows the content of the directory to be listed if the 'x' attribute is also set
+			w - Allows file within the directory to be created, deleted or renamed if the 'x' attribute is also set
+			x - Allows a directory to be entered (i.e., cd dir)
+			
+		Becoming the Super-User for a while:
+		
+			su (substitute user): 
+				In most distributions of UNIX, there is a program that can give us 	temporary access to the SuperUser's privileges. To get the Privileges,
+			we just need to type su and enter, it asks for password
+			
+				[me@linuxbox me]$ su
+				Password:
+				[root@linuxbox me]#
+				
+				In some Distributions, most notably UBUNTU, sudo is used
+				
+				[me@linuxbox me]$ sudo some_command
+				Password:
+				[me@linuxbox me]$
+				
+	
+	Changing File Ownership:	
+	
+		You can change the owner of a file by using the 'chown' command.
+		- Changing the owner of a file from "me" to "you"
+		
+		[me@linuxbox me]$ su
+		Password:
+		[root@linuxbox me]# chown you some_file
+		[root@linuxbox me]# exit
+		[me@linuxbox me]$
+		
+		Note: In order to change the Owner of a file, you must be the SuperUser. To do this, our example employed the 'su' command, then we executed 'chown' and
+			finally we typed 'exit' to return our previous session
+			
+		* chown works the same way on Directories as well
+		
+	Changing Group ownership: 
+	
+		The Group ownership of a file or directory may be changed with 'chgrp'
+		
+		Ex: chgrp <new-grp> <file-name>
+				
+				
+Job Control: 
+
+		In the Previous lesson, we have looked at some of the implications of Linux being a Multi-User operating System. In this lesson, we will examine the 
+		mutlitasking nature of Linux and how this is manipulated with the command-line Interface.
+		
+		- As with any mutlitasking OS, Linux executes multiple, simultaneous processes. well they appear simutalenous, anyway. Actually, a Single processor computer
+		can only execute one process at a time but the Linux kernel manages to give each process its turn at the processor and each appears to be running at the same time.
+		
+		- There are several commands that can be used to control processes. They are
+		
+		* ps	- lists the processes running on the system
+		* kill	- send a signal to one or more processes (usually to "kill" a process)
+		* jobs	- an alternate way of listing your own processes
+		* bg	- put a process in the background
+		* fg	- put a process in the foreground
+		
+		A Practical Example:
+		
+				Mostly, users launch graphical applications using UI, but most of the Graphical applications can be launched using command line. There is a small
+			program supllied with the 'X window system' called 'xload' which displays a graph representing System load.
+		
+			[me@linuxbox me]$ xload
+		
+				The small xload window appears after executing the above command and begins to display the system Graph. Notice also that your prompt didn't reappear
+			after the program launched. 
+			- The shell is wating for the program to finish before control returns to you
+			- If you close the 'xwindow' window, then the xload program terminates and the prompt returns
+		
+		Putting a program in the Background:
+		
+		   This can be done in 2 ways
+			
+			[me@linuxbox me]$ xload &
+			[1] 1223
+
+			[me@linuxbox me]$
+			
+			- In this case, the prompt returned because the process was put in the Background
+			
+			- Suppose we forgot to put the & after the command 
+		
+		   Open the fresh terminal and execute the 'xload' program. Then the window opens. 
+			- Do ctrl + z. The Process will be suspended. The process still exists, but is idle.
+			- To resume the process in the background, type the 'bg' (background) command 
+			
+			[me@linuxbox me]$ xload
+			[2]+ Stopped xload
+			
+			[me@linuxbox me]$ bg
+			[2]+ xload &
+			
+		Listing your processes: 
+		
+			Note that we have a Process in the background, it'd be helpful to display a list of processes we have launched. To do this we can use either 'jobs'
+			or more powerful 'ps' command.
+			
+			[me@linuxbox me]$ jobs
+			[1]+ Running xload &
+			
+			[me@linuxbox me]$ ps
+			PID TTY TIME CMD
+			1211 pts/4 00:00:00 bash
+			1246 pts/4 00:00:00 xload
+			1247 pts/4 00:00:00 ps
+			
+			[me@linuxbox me]$
+			
+		
+		Killing a Process:
+		
+			[me@linuxbox me]$ xload &
+			[1] 1292
+
+			[me@linuxbox me]$ jobs
+			[1]+ Running xload &
+
+			[me@linuxbox me]$ kill %1
+			[me@linuxbox me]$
+			
+			The above process is used when 'jobs' command is used to list the processes 
+
+			[me@linuxbox me]$ xload &
+			[2] 1293
+			[1] Terminated xload
+
+			[me@linuxbox me]$ ps
+			PID TTY TIME CMD
+			1280 pts/5 00:00:00 bash
+			1293 pts/5 00:00:00 xload
+			1294 pts/5 00:00:00 ps
+
+			[me@linuxbox me]$ kill 1293
+			[2]+ Terminated xload
+
+			[me@linuxbox me]$
+			
+			The above process is used when 'ps' command is used to list the processes
+			
+		  A Little more about this
+		  
+			While the 'kill' command is used to 'kill' the processes, its real purpose is to send 'signals' to the processes.
+			
+			*** kill -l --> gives us a list of signals it supports.
+			
+			Signal			Name			Description
+			
+			 1				SIGHUP			HangUp signal. Programs can listen for this signal * act upon it. This s sent to the processes running in a terminal
+											when you close the terminal
+											
+			 2				SIGINT			Interrupt Signal. This can be manually done by pressing 'ctrl + c' in the terminal window when the program is running
+			 
+			 15				SIGTERM			Termination Signal which terminates the processes.	Again programs can access this signals and act upon it. This is 
+											the default signal sent by the kill command if no signal is specified.
+										
+			 9				SIGKILL			Kill Signal which immediately terminates the processes by the Linux kernel. Programs can't listen for this signal 
+			 
+			 
+			Ex: Now lets suppose that you have a program that is hopelessly hung and we wanna get rid of it. Here's what we have to do.
+				
+				1. use 'ps' command to know the process id(PID) of the process to be terminated
+				2. Issue a kill command for that PID
+				3. If the process refuses to terminate, send increasingly harsh signals to that PID.
+				
+			
+			[me@linuxbox me]$ ps x | grep bad_program
+			PID TTY STAT TIME COMMAND
+			2931 pts/5 SN 0:00 bad_program
+			[me@linuxbox me]$ kill -SIGTERM 2931
+			[me@linuxbox me]$ kill -SIGKILL 2931
+			
+			We can also send signals, without names like this.. 
+			
+			[me@linuxbox me]$ kill 2931		~ 		[me@linuxbox me]$ kill -SIGTERM 2931	~ 	[me@linuxbox me]$ kill -15 2931
+			
+			- If the process still doesnt get terminated, then we have to increase harshness of the signal. Finally...
+			
+			[me@linuxbox me]$ kill -9 2931		~		[me@linuxbox me]$ kill -SIGKILL 2931
+			
+			- Passing '-9' to the kill (nothing but forcing the process to terminate) immediately terminates the program. 			
+					
