@@ -1,0 +1,47 @@
+Global Infrastructure:
+* AWS Infrastructure is built around Regions & Availability Zones (AZs)
+* A Region is a physical location where we have multiple AZs
+* AZs consists of one or more discrete data centers, each with redundant power, networking and connectivity housed in separate facilities
+* Each Region is completely isolated from others. But the AZs in a region are connected through low-latency links
+* AWS provides us with the flexibility to place instances within multiple regions and multiple AZs within a region
+* AZs are all redundantly connected to multiple tier-1 transit providers
+
+Security and Compliance:
+* Security in the cloud is much like security in your on-premises data centers - only without the costs of maintaining facilities and hardware
+* In the cloud, you dont have to manage physical servers or storage devices. Instead we use Software based security tools to monitor and protect
+  the flow of information into and out of our Cloud resources
+* AWS Cloud enables a shared responsibility model. As AWS is responsible for Security in the cloud, we are also equally responsible. This means 
+  that you can retain control over the things what ever you want like you have on on-site data center
+* In the AWS Environment, we can take advantage over of automated tools for asset inventory and privileged access reporting
+  
+  Benefits of AWS Security:
+  * Keep your data safe
+  * Meet compliance requirements (COmpliance-deformation when added more instances etc.,)
+  * Save money
+  * Scale quickly (grows with the AWS resources you use)
+
+
+Amazon web services cloud platform: 
+	AWS consists of many cloud services that can be tailored according to our business/organization needs. This section introduces the major
+	services by category. The AWS services can be accessed in all the following ways
+	1. AWS management console
+	2. AWS Cli
+	3. AWS SDKs (Software development Kits)
+	
+  Services:
+  
+  1. AWS management console:
+		A simple and intuitive user interface to access and manage the Amazon web services. We can also use 'AWS Console Mobile app'
+	 to quickly view resources on the go
+	
+  2. AWS Command line(AWS Cli):
+		AWS Cli is a unified tool to manage your AWS Services. With just one tool to download and configure, we can control multiple AWS
+		services from the command line and automate them through scripts
+  
+  3. SDKs:
+		SDks are used by our applications with an API according to our Programming language or platform
+		
+  4. 
+  
+
+
