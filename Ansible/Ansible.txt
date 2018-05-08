@@ -1,0 +1,3 @@
+/usr/local/lib/python2.7/site-packages/ansible/galaxy/data/container_enabled/tests/ansible.cfg 
+
+The above file is the configuration file for Ansible
