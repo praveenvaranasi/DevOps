@@ -1,3 +1,57 @@
 /usr/local/lib/python2.7/site-packages/ansible/galaxy/data/container_enabled/tests/ansible.cfg 
 
 The above file is the configuration file for Ansible
+
+Ansible:
+
+	Ansible is a radically simple IT Automation engine that automates "Cloud Provisioning, Configuration Management, Application Deployment, intra-service orchestration and many other IT needs"
+	* Ansible models your IT Infrastructure by describing how Systems inter-relate, rather than just managing one system at a time
+	* It uses no agents and no additional custom Security Infrastructure. So it's easy to deploy and most importantly, it uses a simple language(YAML, in the form of playbooks) that allow you
+	  to describe your automation jobs in a way that approaches English.
+	  
+	  
+	Efficient Architecture:
+	
+	* Ansible works by connecting to your nodes and pushing out small programs called 'Ansible modules'. These programs are written to be desired state of the System.
+		Ansible then executes these modules (over SSH by default) and removes them when finished
+	* Our libraries can reside on any machine, and there are no servers, daemons or databases required. 
+	
+	SSH Keys are your friend:
+	
+	* Passwords are supported, but SSH Keys with 'ssh-agent' are one of the best ways to use Ansible. Root logins aren't required, you can login as any user, and then 'su or sudo' to any user.
+	* Ansible's 'authorized key' module is a great way to use ansible to control what machines can access what hosts. "Kerberos/ identity management" can also be used
+	
+	Managing our Inventory in simple text files
+	
+	* By default, Ansible represents what machines it manages using a very simple ini file that puts all of your managed machines in groups of our own choosing. The Inventory file looks like: 
+	
+		[webservers]
+		www1.example.com
+		www2.example.com
+
+		[dbservers]
+		db0.example.com
+		db1.example.com
+		
+	-> Once Inventory hosts are listed, variables can be assigned to them in simple text files (in a subdirectory called group_vars/ or host_vars/) or directly in the inventory file.
+	-> Or as already mentioned, use a dynamic inventory to pull inventory from data sources like EC2, Rackspace or OpenStack
+	
+	Basics: 
+	
+	Using Ansible for AD HOC Parallel task execution:
+	* Once if an instance is available, you can talk to it right away without any additional setup
+	* Note that we have access to "state based resource modules" as well as "running raw commands" 
+	
+	Playbooks
+	* Playbooks can finely orchestrate multiple slices of your infrastructure topology, with very detailed control over how many machines to tackle at a time.
+	
+	Ansible can also do much more in greater depth:
+	1. Take machines in and out of load balancers and monitoring windows
+	2. Have one server know the IP address of all the others using facts gathered about those particular servers - and use those dynamically build out configuration files
+	3. set some variables and prompt for others and set defaults for when they are not set
+	4. use the result of one command to decide whether to run another
+	
+	
+	
+	  
+	  
