@@ -1,0 +1,16 @@
+https://github.com/ansible/ansible/tree/devel/examples
+
+~/.ssh/config : content
+
+Host 172.31.93.250
+     StrictHostKeyChecking no
+     UserKnownHostsFile /dev/null
+     IdentityFile ~/.ssh/keyforans.pem
+     user centos
+	 
+	 
+https://futurestud.io/tutorials/simplify-your-ssh-connections-with-ssh-config-file	
+
+https://www.sublimetext.com/3
+
+http://docs.ansible.com/ansible/latest/modules/yum_module.html?highlight=yum%20module
