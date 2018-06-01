@@ -1,0 +1,11 @@
+---
+- hosts: local
+  user: centos
+  become: yes
+  tasks:
+    - name: Adding the user 
+      user:
+      name: user13
+      comment: normal user adding to wheel group
+      uid: 1040
+      group: wheel

@@ -1,0 +1,116 @@
+ aws ec2 run-instances --image-id ami-01eace64d49a4bede --instance-type t2.micro --key-name Praveen-AWS --security-group-ids sg-0ac4b7d3252eab0fa --subnet-id subnet-0d06821448c851ca9 --count 1
+
+ 
+ "Instances": [
+        {
+            "Monitoring": {
+                "State": "disabled"
+            },
+            "PublicDnsName": "",
+            "StateReason": {
+                "Message": "pending",
+                "Code": "pending"
+            },
+            "State": {
+                "Code": 0,
+                "Name": "pending"
+            },
+            "EbsOptimized": false,
+            "LaunchTime": "2018-06-01T05:56:32.000Z",
+            "PrivateIpAddress": "192.168.2.10",
+            "ProductCodes": [],
+            "VpcId": "vpc-0dfc252243da823f2",
+            "CpuOptions": {
+                "CoreCount": 1,
+                "ThreadsPerCore": 1
+            },
+            "StateTransitionReason": "",
+            "InstanceId": "i-03a9b6a49a6205c6b",
+            "ImageId": "ami-01eace64d49a4bede",
+            "PrivateDnsName": "ip-192-168-2-10.us-east-2.compute.internal",
+            "SecurityGroups": [
+                {
+                    "GroupName": "default",
+                    "GroupId": "sg-0ac4b7d3252eab0fa"
+                }
+            ],
+            "ClientToken": "",
+            "SubnetId": "subnet-0d06821448c851ca9",
+            "InstanceType": "t2.micro",
+            "NetworkInterfaces": [
+                {
+                    "Status": "in-use",
+                    "MacAddress": "02:bf:f0:96:6f:ac",
+                    "SourceDestCheck": true,
+                    "VpcId": "vpc-0dfc252243da823f2",
+                    "Description": "",
+                    "NetworkInterfaceId": "eni-08fb317ac08053670",
+                    "PrivateIpAddresses": [
+                        {
+                            "PrivateDnsName": "ip-192-168-2-10.us-east-2.compute.internal",
+                            "Primary": true,
+                            "PrivateIpAddress": "192.168.2.10"
+                        }
+                    ],
+                    "PrivateDnsName": "ip-192-168-2-10.us-east-2.compute.internal",
+                    "Attachment": {
+                        "Status": "attaching",
+                        "DeviceIndex": 0,
+                        "DeleteOnTermination": true,
+                        "AttachmentId": "eni-attach-01b13e3a5e5b12805",
+                        "AttachTime": "2018-06-01T05:56:32.000Z"
+                    },
+                    "Groups": [
+                        {
+                            "GroupName": "default",
+                            "GroupId": "sg-0ac4b7d3252eab0fa"
+                        }
+                    ],
+                    "Ipv6Addresses": [],
+                    "OwnerId": "486132913654",
+                    "SubnetId": "subnet-0d06821448c851ca9",
+                    "PrivateIpAddress": "192.168.2.10"
+                }
+            ],
+            "SourceDestCheck": true,
+            "Placement": {
+                "Tenancy": "default",
+                "GroupName": "",
+                "AvailabilityZone": "us-east-2a"
+            },
+            "Hypervisor": "xen",
+            "BlockDeviceMappings": [],
+            "Architecture": "x86_64",
+            "RootDeviceType": "ebs",
+            "RootDeviceName": "/dev/xvda",
+            "VirtualizationType": "hvm",
+            "AmiLaunchIndex": 0
+        }
+    ],
+    "ReservationId": "r-024cfec6d1b0516bd",
+    "Groups": [],
+    "OwnerId": "486132913654"
+}
+
+
+
+Termination: 
+
+
+$ aws ec2 terminate-instances --instance-ids i-03a9b6a49a6205c6b
+{
+    "TerminatingInstances": [
+        {
+            "InstanceId": "i-03a9b6a49a6205c6b",
+            "CurrentState": {
+                "Code": 32,
+                "Name": "shutting-down"
+            },
+            "PreviousState": {
+                "Code": 16,
+                "Name": "running"
+            }
+        }
+    ]
+}
+

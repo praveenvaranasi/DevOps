@@ -1,0 +1,9 @@
+---
+- hosts: local
+  user: centos
+  become: yes
+  tasks:
+  - name: creating an instance using aws cli
+    command: aws ec2 run-instances --image-id ami-d5bf2caa --subnet-id subnet-f6a081d9 --security-group-ids sg-f6b81e80 --count 1 --instance-type t2.micro --key-name keyforans --query 'Instances[0].InstanceId'
+    register: result
+  - debug: var=result

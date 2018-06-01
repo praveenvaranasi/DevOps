@@ -14,3 +14,7 @@ https://futurestud.io/tutorials/simplify-your-ssh-connections-with-ssh-config-fi
 https://www.sublimetext.com/3
 
 http://docs.ansible.com/ansible/latest/modules/yum_module.html?highlight=yum%20module
+
+Permission for Specific files:
+* Only read (400) permission for Key file in Instance/system
+* Only read & write (600) permission for ssh's config in Instance/system

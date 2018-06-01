@@ -1,0 +1,38 @@
+$ aws ec2 start-instances --instance-ids i-016cdd0349cdb440d i-016b933b67f969283 i-03a9b6a49a6205c6b
+{
+    "StartingInstances": [
+        {
+            "InstanceId": "i-016cdd0349cdb440d",
+            "CurrentState": {
+                "Code": 0,
+                "Name": "pending"
+            },
+            "PreviousState": {
+                "Code": 80,
+                "Name": "stopped"
+            }
+        },
+        {
+            "InstanceId": "i-016b933b67f969283",
+            "CurrentState": {
+                "Code": 0,
+                "Name": "pending"
+            },
+            "PreviousState": {
+                "Code": 80,
+                "Name": "stopped"
+            }
+        },
+        {
+            "InstanceId": "i-03a9b6a49a6205c6b",
+            "CurrentState": {
+                "Code": 16,
+                "Name": "running"
+            },
+            "PreviousState": {
+                "Code": 16,
+                "Name": "running"
+            }
+        }
+    ]
+}
