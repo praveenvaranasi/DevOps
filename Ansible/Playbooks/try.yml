@@ -1,0 +1,21 @@
+---
+- hosts: local
+  remote_user: ec2-user
+  gather_facts: False
+  tasks:
+    - name: ping the node-1
+      ping:
+    - name: check the destination directory
+      shell: ls /home/ec2-user
+    - name: copy the ansible hosts file to node-1
+      copy:
+        src: /etc/ansible/hosts 
+        dest: /home/ec2-user
+    - name: delete the file
+      file: 
+        dest=/home/ec2-user/hosts state=absent
+    - name: adding a line into the hosts file
+      lineinfile:
+        path: /home/ec2-user/Learn/DevOps/Ansible/Playbooks/hosts
+        line: 192.168.2.80
+        insertafter: 'node-1'

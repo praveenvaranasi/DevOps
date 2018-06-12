@@ -1,0 +1,14 @@
+---
+- hosts: node-1
+  remote_user: ec2-user
+  handlers:
+    - name: check the contents
+      shell: /bin/ls
+  tasks:
+    - name: copying the ansible.cfg file
+      copy:
+        src: /etc/ansible/ansible.cfg
+        dest: /home/ec2-user
+      register: result
+    - debug: var=result
+      notify: check the contents
