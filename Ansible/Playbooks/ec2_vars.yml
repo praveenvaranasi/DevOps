@@ -1,0 +1,22 @@
+---
+ec2:
+  key_name: Praveen-AWS
+  instance_type: t2.micro
+  image: ami-922914f7
+  region: us-east-2
+  zone: us-east-2a
+  wait: yes
+  group: sg-0ac4b7d3252eab0fa
+  vpc_subnet_id: subnet-0d06821448c851ca9
+  assign_public_ip: yes
+  count: 1
+
+ec2_vol:
+  device_name: /dev/xvda
+  volume_size: 8
+  device_type: gp2
+  delete_on_termination: true
+
+ec2_ins_tags:
+  key: Instance
+  value: node-2

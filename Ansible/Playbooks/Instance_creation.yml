@@ -15,8 +15,14 @@
         vpc_subnet_id: subnet-0d06821448c851ca9
         zone: us-east-2a
         termination_protection: no
+        wait: yes
         instance_tags: 
           Instance: node-2
+        volumes:
+        - device_name: /dev/xvda
+          volume_size: 8
+          volume_type: gp2
+          delete_on_termination: true
         private_ip: 192.168.2.14
         assign_public_ip: no
       register: ec2
