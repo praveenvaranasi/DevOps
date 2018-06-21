@@ -14,6 +14,9 @@ usage()
 			
 	To Stop the Instances:
 			./AWS_Utilities.sh stop_instances <Tag_Name> <Key_value>
+			
+	To Check the Instance status:
+			./AWS_Utilities.sh describe_instance_status <Tag_Name> <Key_value>
 	
 	
 	*******************************************************************************************
@@ -38,8 +41,16 @@ control_instances()
 	
 	for i in `cat ${temp_file}`
 	do
-		echo ${i}
-		${fn_name} $i ${tag} ${tag_value}
+		case ${fn_name} in
+			start_instances | stop_instances)
+				${fn_name} $i ${tag} ${tag_value}
+			;;
+			describe_instance_status)
+				${fn_name} $i
+			;;
+			*)
+				echo -e "Please check the function name you have passed:\nValid function names are:\n1.start_instances\n2.stop_instances\n3.describe_instance_status"
+		esac
 	done		
 }
 
@@ -47,7 +58,7 @@ start_instances()
 {
 	echo "Starting the Instance with Instance-id ${i}"
 	aws ec2 start-instances --instance-ids ${i}
-	sleep 30s
+	sleep 25s
 	get_public_ip ${tag} ${tag_value}
 }
 
@@ -62,6 +73,12 @@ get_public_ip()
 	public_ip=$(aws ec2 describe-instances --filters "Name=tag:${tag},Values=${tag_value}" --query 'Reservations[*].{PubIP: Instances[0].PublicIpAddress}' --output text)
 	echo "Connect to the Instance using the PublicIP: ${public_ip}"
 }
+
+describe_instance_status()
+{
+	aws ec2 describe-instance-status --include-all-instances --instance-ids ${i} --query 'InstanceStatuses[*].{state: InstanceState.Name}' --output text
+}
+
 
 
 
