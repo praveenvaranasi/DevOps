@@ -23,10 +23,17 @@
         insertafter: 'node-1'
 
     - name: Working on variables
-      shell: echo "The variable value is:" "{{ hello }}"
+      shell: echo "The variable value is:" "{{ lookup('env', 'AWS_ACCESS_KEY_ID') }}" "{{ lookup('env', 'AWS_SECRET_ACCESS_KEY') }}"
       register: output
       tags: variable
 
     - name: display the result
       debug: msg="{{ output.stdout }}"
       tags: variable
+
+
+    - name: delete a file
+      file:
+        dest: /home/ec2-user/Learn/DevOps/Ansible/Playbooks/ex.txt
+        state: absent
+      tags: try_file
