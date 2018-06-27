@@ -1,9 +1,0 @@
----
-- hosts: local
-  user: centos
-  become: yes
-  tasks:
-  - name: terminating an instance using aws cli
-    command: aws ec2 terminate-instances --instance-ids i-0eaa2447b8ea9120e
-    register: result
-  - debug: var=result

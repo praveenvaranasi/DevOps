@@ -1,9 +1,0 @@
----
-- hosts: node-1
-  user: centos
-  become: yes
-  tasks:
-  - name: copy file from local to remote
-    copy:
-      src: /etc/ansible/ansible.cfg
-      dest: ~/
