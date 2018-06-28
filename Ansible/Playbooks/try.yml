@@ -28,9 +28,9 @@
       tags: variable
 
     - name: display the result
-      debug: msg="{{ output.stdout }}"
+      debug:
+        msg: "{{ output.stdout }}"
       tags: variable
-
 
     - name: delete a file
       file:

@@ -8,7 +8,7 @@
         aws_secret_key: "{{ lookup('env', 'AWS_ACCESS_KEY') }}"
         count: 1
         group_id: sg-0ac4b7d3252eab0fa
-        image: ami-922914f7
+        image: ami-9c0638f9
         instance_type: t2.micro
         key_name: Praveen-AWS
         region: us-east-2
@@ -17,21 +17,58 @@
         termination_protection: no
         wait: yes
         instance_tags: 
-          Instance: node-2
+          Name: centos
         volumes:
-        - device_name: /dev/xvda
+        - device_name: /dev/sda1
           volume_size: 8
           volume_type: gp2
           delete_on_termination: true
-        private_ip: 192.168.2.14
         assign_public_ip: no
       register: ec2
-      tags: create_Instance
 
     - name: adding a line into the hosts file
       lineinfile:
         path: /etc/ansible/hosts
-        line: "{{ item.private_dns_name }}"
+        line: "{{ item.private_ip }}"
         insertafter: 'nodes'
       with_items: "{{ ec2.instances }}"
-      tags: create_Instance
+      loop_control:
+        label: "{{ item.private_ip }}"
+
+    - name: trying to execute few lines on new Instance
+      shell: sleep 25s
+
+    - name: Refreshing inventory file
+      meta: refresh_inventory
+
+- hosts: nodes
+  become: yes
+  remote_user: centos
+  tasks:
+    - name: Installing the docker
+      yum: 
+        name: docker
+        state: latest
+
+    - name: starting the docker service
+      service:
+        name: docker
+        state: started
+
+    - name: Installing pip
+      shell: curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && python get-pip.py
+
+    - name: Installing the docker-py
+      pip:
+        name: docker-py
+
+    - name: Running the container
+      docker_container:
+        name: jenkins
+        image: praveenvp/softwares:jenkins
+        pull: yes
+        state: started
+        ports:
+          - "8080:8080"
+      tags: container
+

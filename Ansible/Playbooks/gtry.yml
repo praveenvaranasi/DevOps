@@ -1,0 +1,33 @@
+---
+- hosts: local
+  remote_user: ec2-user
+  tasks:
+    - name: ping local
+      ping:
+
+- hosts: nodes
+  become: yes
+  remote_user: centos
+  tasks:
+    - name: ping node
+      ping:
+
+    - name: installing Docker in centos sys
+      yum:
+        name: docker
+        state: absent
+      notify:
+        - dock
+
+  handlers:
+    - name: check version
+      shell: docker --version
+      listen: dock
+    - name: starting the docker service
+      service:
+        name: docker
+        state: started
+      listen: dock
+    - name: check version again
+      shell: docker --version
+      listen: dock
