@@ -63,20 +63,11 @@
   become: yes
   remote_user: centos
   tasks:
-    - name: Installing the docker
+    - name: Configuring the Environment
       yum: 
-        name: docker
+        name: "{{ item }}"
         state: latest
-
-    - name: Installing the Java
-      yum:
-        name: java
-        state: latest
-
-    - name: Installing wget
-      yum:
-        name: wget
-        state: latest
+      loop: [ 'docker', 'java', 'wget' ]
 
     - name: starting the docker service
       service:
