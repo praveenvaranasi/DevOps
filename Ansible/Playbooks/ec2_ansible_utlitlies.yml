@@ -1,0 +1,23 @@
+---
+- hosts: local
+  remote_user: ec2-user
+  tasks:
+  - name: Start/stop the Instance
+    ec2: 
+      aws_access_key: "{{ lookup('env','AWS_ACCESS_KEY_ID') }}"
+      aws_secret_key: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
+      state: "{{ state | default('stopped') }}"
+      wait: yes
+      assign_public_ip: yes
+      region: us-east-2
+      instance_tags:
+        Name: "{{ tag | default('Centos') }}"
+    register: output
+    notify: InstanceState
+
+  handlers:
+    - name: Print the state of instance
+      debug:
+        msg: "{{ item.state }}"
+      with_items: "{{ output.instances }}"
+      listen: InstanceState

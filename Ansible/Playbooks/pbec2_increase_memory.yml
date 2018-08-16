@@ -2,7 +2,7 @@
 - hosts: local
   remote_user: ec2-user
   tasks:
-  - name: get the Details
+  - name: getting the Details
     ec2_instance_facts:
       aws_access_key: "{{ lookup('env', 'AWS_ACCESS_KEY_ID') }}" 
       aws_secret_key: "{{ lookup('env', 'AWS_SECRET_ACCESS_KEY') }}"
@@ -10,17 +10,7 @@
         "tag:Name": "{{ tag_value }}"
     register: outres
 
-  - name: Create the snapshots from volume
-    ec2_snapshot:
-      aws_access_key: "{{ lookup('env', 'AWS_ACCESS_KEY_ID') }}"
-      aws_secret_key: "{{ lookup('env', 'AWS_SECRET_ACCESS_KEY') }}"
-      region: us-east-2
-      volume_id: "{{ outres.instances[0].block_device_mappings[0].ebs.volume_id }}"
-      wait: yes
-    register: snaps
-    tags: tbd
-
-  - name: Create the ami
+  - name: Creating the ami
     ec2_ami:
       aws_access_key: "{{ lookup('env', 'AWS_ACCESS_KEY_ID') }}"
       aws_secret_key: "{{ lookup('env', 'AWS_SECRET_ACCESS_KEY') }}"
@@ -35,7 +25,7 @@
       label: "{{ item['instance_id'] }}"
     register: amidetails
 
-  - name: launching the AMI with more memory
+  - name: Relaunching the Instance
     ec2:
         aws_access_key: "{{ lookup('env', 'AWS_ACCESS_KEY_ID') }}"
         aws_secret_key: "{{ lookup('env', 'AWS_ACCESS_KEY') }}"

@@ -11,10 +11,6 @@
       copy:
         src: /etc/ansible/hosts 
         dest: /home/ec2-user
-    
-    - name: delete the file
-      file: 
-        dest=/home/ec2-user/hosts state=absent
 
     - name: adding a line into the hosts file
       lineinfile:
@@ -37,3 +33,9 @@
         dest: /home/ec2-user/Learn/DevOps/Ansible/Playbooks/ex.txt
         state: absent
       tags: try_file
+
+    - name: add entry
+      add_host:
+        groups: giveatry
+        name: 193.168.2.5
+      tags: tryaddhost
