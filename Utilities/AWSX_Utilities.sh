@@ -8,6 +8,20 @@ usage()
 	cat <<EOF
 	*******************************************************************************************
 	The file contains the functions to start and stop the Instances using Tag and Value filters
+	
+	To start the Instances: 
+			./AWS_Utilities.sh start_instances <Tag_Name> <Key_value>
+			
+	To Stop the Instances:
+			./AWS_Utilities.sh stop_instances <Tag_Name> <Key_value>
+			
+	To Check the Instance status:
+			./AWS_Utilities.sh describe_instance_status <Tag_Name> <Key_value>
+	
+	To Check all Instance statuses:
+			./AWSX_Utilities.sh describe-instance-status
+	
+	*******************************************************************************************
 EOF
 }
 
@@ -31,15 +45,13 @@ get_public_ip()
 get_the_instanceIds()
 {
 	aws ec2 describe-instances --filters "Name=tag:${tag},Values=${tag_value}" --query 'Reservations[*].{InsIds: Instances[0].InstanceId}' --output text > ${temp_file}
-		
-	sed -i -e ':a' -e 'N' -e '$!ba' -e 's/\n/ /g' ${temp_file}
+	process_the_idfile		
 }
 
 get_all_instanceids()
 {
 	aws ec2 describe-instances --query 'Reservations[*].{iid: Instances[*].InstanceId}' --output text | sed -e 's/[[:space:]]\+/ /g' | cut -d ' ' -f2 > ${temp_file}
-	process_the_idfile
-	aws ec2 describe-instance-status --include-all-instances --instance-ids ${i} --query 'InstanceStatuses[*].{state: InstanceState.Name}' --output text
+	process_the_idfile	
 }
 
 main()
@@ -59,9 +71,12 @@ main()
 		
 	elif [ $1 == "describe-instance-status" ] ; then
 	
-		echo "Okay"
 		get_all_instanceids
-		
+		for i in `cat ${temp_file}`
+		do
+			echo -n `aws ec2 describe-tags --filters "Name=resource-id,Values=${i}" --query 'Tags[*].{Tag_value: Value}' --output text`": "
+			aws ec2 describe-instance-status --include-all-instances --instance-ids ${i} --query 'InstanceStatuses[*].{state: InstanceState.Name}' --output text
+		done		
 		
 	else		
 		usage
