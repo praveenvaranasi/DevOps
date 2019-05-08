@@ -1,0 +1,7 @@
+Concepts:
+* we use Kubernetes API Objects to describe our cluster's desired state like
+	- what apps or workloads we wanna run
+	- what container images they use
+	- the number of replicas
+	- what network and number of resources we want to make available and more
+  We set our desired state by creating "Objects" using the "Kubernetes API", typically via the cli "kubectl"/"Kubernetes API" (lets us to interact directly with the Cluster to set/modify our cluster's desired state) 
