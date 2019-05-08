@@ -38,5 +38,5 @@ Features:
 		* Scale your application up and down with a simple command "with a UI/automatically" based on the CPU usage
 
 
-Concepts:
+
 
