@@ -1,0 +1,53 @@
+Deep Learning and NLP:
+
+  * Her movie - Practical example of DeepNLP
+
+  * NLP can be applied in the following things:
+    * Speech Transcription
+    * Neural machine Translation (NMT)
+    * Chatbots
+    * Q&A
+    * Text summarisation
+    * Image Captioning
+    * Video Captioning
+
+
+  * Plan of Attack: 
+    * Types of Natural Language Processing (NLP) , NLP vs DeepLearning vs DeepNLP
+    * Classical vs Deep Learning models
+    * End to End Deep Learning models
+    * Bag of words NLP model (2 variations)
+    * Seq2Seq (advanced of BOW, most important for our chatbot)
+    * Seq2Seq Architecture
+    * Beam search decoding (diff types of outputs that come up in chatbot)
+    * Attention Mechanisms (additional augmentation of seq2seq model, longer term memory for the algorithm)
+    *
+    * Annex 1: Artifical neural networks (ANNs)
+    * Annex 2: Recurrent Neural networks (RNNs)
+    * ANNs and RNNs are the base for Seq2Seq architecture.
+
+* Types of NLP:      NLP  DNLP//Seq2seq DL (Seq2Seq model is thope till date)
+
+
+Classical vs Deep Learning Models: 
+
+NLP Models: 
+  * if/else rules module (chatbot): 
+    - huge list of questions and answers that can be faced in chatbot
+    - Gets mess over the time. 
+
+  * Audio frequency components Analysis: 
+    - Contains some predefined audio wave (recorded earlier from human voice)
+    - When we talk in real time, it ll be looking out for the recorded libraries using mathematical calculations
+
+  * Bag of words Model (words with 0's or 1's): 
+    - Contains the statements with pass/fail value
+    - When something comes, it ll look into the Bag of words and decide whether it is Pass/fail (0's or 1's) 
+
+Deep NLP Models:
+  * CNN(Convolutional Neural Networks) for Text recognition: 
+    - Is an Image recognition used in self driving cars to recognise the Obstacles
+    - Interesting to see how it works for Text recognition
+
+Seq 2 Seq Model: 
+  - Used in Many applications  
