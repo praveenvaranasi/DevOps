@@ -1,0 +1,11 @@
+Basics:
+
+* vagrant init     - Initializes the new Vagrant environment by creating a Vagrantfile
+* vagrant up       - Starts and provision the vagrant environment
+* vagrant suspend  - Suspends the machine
+* vagrant resume   - Resumes the suspended machine
+* vagrant reload   - Restarts vagrant machine, loads new Vagrantfile configuration
+* vagrant halt     - stops the vagrant machine
+* vagrant ssh      - Connects to machine via ssh
+* vagrant status   - Outputs status of the vagrant machine
+* vagrant package  - Packages a running vagrant environment into a box

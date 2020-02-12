@@ -1,0 +1,42 @@
+KUBERNETES is an open-source system for automating deployments, scaling and management of containerized applications
+
+	* Planet Scale (billions of containers/week without increasing ops team)
+	* Never outgrow (flexibility grows with you to deliver your application consistently)
+	* Run anywhere (lets you to move your workloads where ever you need [on-premises, hybrid, public infrastructure])
+
+Features:
+
+	1. Service discovery & Load Balancing:
+		* Kubernetes gives containers their own ip-addresses and DNS name for a set of containers
+		* Also it can load-balance across the DNS (container set)
+
+	2. Storage Orchestration:
+		* Automatically mount the storage system of our choice (local storage, aws, GCP or n/w storage system such as NFS, iSCSI, Gluster,
+	  	Ceph, Cinder or Flocker)
+
+	3. Automated Rollouts and Rollbacks:
+		* Kubernetes progressively rolls out changes to our application or its configuration, while monitoring application health to ensure it doesn't kill all your instances at the same time
+		* If Something goes wrong, Kubernetes will rollback the change for you.    
+
+	4. Batch Execution:
+		* Kubernetes can manage our batch and CI workloads, replacing containers that fail, if desired.
+
+	5. Automatic binpacking:
+		* Automatically places containers based on the resource requirements and other constraints, while not sacrificing availability. 
+		* Mixes critical and best effort workloads in order to drive up Utilization and save even more resources
+
+	6. Self healing:
+		* Restarts Containers that fail, replaces & reschedules containers when nodes die
+		* Kills Containers that don't respond to our user-defined health check &  doesn't advertise them to clients until they're 
+	  	ready to serve
+
+	7. Secret and Configuration Management:
+		* Deploy and update secrets and application configuration without rebuilidng our image and without exposing secrets in our
+	  	stack configuration
+
+	8. Horizontal scaling: 
+		* Scale your application up and down with a simple command "with a UI/automatically" based on the CPU usage
+
+
+
+
