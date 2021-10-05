@@ -3,7 +3,7 @@
 
 Changes: 
 1. Github generated String based PR Number - At Present
-   - We need to get the Numerically highest release version of the last 10 releases. 
+   - Done: We need to get the Numerically highest release version of the last 10 releases. 
    - Get its Commit SHA ID
 2. Based on the SHA Obtained, Get the PR
    - Now, Get the changetype of the releases which are "MERGED AND CLOSED" released after the PR Obtained from the Step 1
