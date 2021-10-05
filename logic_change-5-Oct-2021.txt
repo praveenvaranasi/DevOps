@@ -4,8 +4,11 @@
 Changes: 
 1. Github generated String based PR Number - At Present
    - Done: We need to get the Numerically highest release version of the last 10 releases. 
-   - Get its Commit SHA ID
-2. Based on the SHA Obtained, Get the PR
+   - Done: Get its Commit SHA ID
+     - Get the tag
+     - Run the commmand against the tag
+       ~ git show <tag> -n 1 -q --format=%H
+2. Based on the SHA Obtained, Get the PR (curl -u "praveenvaranasi:${github}" -X GET https://api.github.com/repos/praveenvaranasi/DevOps/pulls?state=closedß)
    - Now, Get the changetype of the releases which are "MERGED AND CLOSED" released after the PR Obtained from the Step 1
    - Do the Priority check and decide the changetype
      Priority: (highest to lowest precedence)
