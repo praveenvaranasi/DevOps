@@ -3,7 +3,7 @@
 
 Changes: 
 1. Github generated String based PR Number - At Present
-   - Done: We need to get the Numerically highest release version. 
+   - Todo(can do): We need to get the Numerically highest release version
      ~ If "changetype" exists in the body, go to next lowest version "till you donot get the changetype in the body"
      ~ Once you dont get the changetype, then get the PR based on the commit SHA ID
 
@@ -13,11 +13,34 @@ Changes:
        ~ git show <tag> -n 1 -q --format=%H
 
 
-2. Based on the SHA Obtained, Get the PR (curl -u "praveenvaranasi:${github}" -X GET https://api.github.com/repos/praveenvaranasi/DevOps/pulls?state=closed)
-   - https://api.github.com/repos/praveenvaranasi/DevOps/commits/<sha id>/pulls 
-   - Now, Get the changetype of the releases which are "MERGED AND CLOSED" released after the PR Obtained from the Step 1
+2. Based on the SHA Obtained, Get the PR (curl -u "praveenvaranasi:${github}" -X GET https://api.github.com/repos/praveenvaranasi/DevOps/pulls?state=closed)      - Done
+   - https://api.github.com/repos/praveenvaranasi/DevOps/commits/<sha id>/pulls
+   - Now, Get the changetype of the releases which are "MERGED AND CLOSED" released after the PR Obtained from the Step 1 (gh pr list --search "SHA:4c20e23b599652c50a28c1653e066f7fdcf0076c is:merged")
+     - Get the releases after the Obtained PR
+       - How do you get the obtained PR? 
+         * List the releases and write them into file                                                                                                             - 
+         * Now, input the file into while loop 
+         * while will be Iterating over each and every line 
+           - Get the tag and see the last Commit log
+           - If the commit log contains the changetype, continue with the next iteration till you do not get the changetype in the commit log  -- use continue (what are we doint it for? to find the merged branch only right? )
+           - Once changetype less release found, consider that "Release version", Get the commit id and get the PR
+           - PR has number. Take it
+           - Now, how to see how many PRs were there? 
+           - Once you get the number, start getting the change type of all the PRs from latest to the Obtained PR number from the body > write all 
+                                                                                                                    these into the file "changetype"
+           - Finally check the precedence
+             ~ do uniq
+             ~ grep for major in the file "changetype". if $? -eq 0 then set change_type to major
+             ~ grep for minor in the file "changetype". If $? -eq 0 and changetype is not set already, then set changetype to minor
+             ~ grep for patch in the file "changetype". If $? -eq 0 and changetype is not set already, then set changetype to patch
+
+           - Call the function to up the release 
+
    - Do the Priority check and decide the changetype
      Priority: (highest to lowest precedence)
      ~ Major
-     ~ Minor
+     ~ Minorq
      ~ Patch
+
+     Test:
+     * curl -u "praveenvaranasi:${github}" -X GET https://api.github.com/repos/praveenvaranasi/DevOps/commits/ee8a58301d5990f7769bd9fff2a73591ac345c58/pulls
